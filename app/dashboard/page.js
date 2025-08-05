@@ -5,6 +5,7 @@ import User from "@/models/User";
 import Restaurant from "@/models/Restaurant";
 import Category from "@/models/Category";
 import MenuProduct from "@/models/MenuProduct";
+import Link from "next/link";
 
 export default async function Dashboard() {
   await connectMongo();
@@ -65,9 +66,9 @@ export default async function Dashboard() {
               </div>
               {!user.hasAccess && (
                 <div className="card-actions">
-                  <a href="/#pricing" className="btn btn-primary">
+                  <Link href="/#pricing" className="btn btn-primary">
                     Вижте ценовите планове
-                  </a>
+                  </Link>
                 </div>
               )}
             </div>
@@ -105,13 +106,13 @@ export default async function Dashboard() {
                             </span>
                           </div>
                         </div>
-                        <a
+                        <Link
                           href={`/${restaurant.slug}`}
                           target="_blank"
                           className="btn btn-outline btn-sm"
                         >
                           Вижте публичното меню
-                        </a>
+                        </Link>
                       </div>
 
                       <div className="stats shadow w-full">
@@ -162,114 +163,155 @@ export default async function Dashboard() {
                         Създайте своя ресторант, за да започнете изграждането на вашето
                         дигитално меню.
                       </p>
-                      <a
+                      <Link
                         href="/dashboard/restaurant"
                         className="btn btn-primary"
                       >
                         Създайте ресторант
-                      </a>
+                      </Link>
                     </div>
                   )}
                 </div>
               </div>
 
               {/* Quick Actions */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow">
-                  <div className="card-body text-center">
-                    <div className="w-12 h-12 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 text-primary"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h4M9 7h6m-6 4h6m-6 4h6"
-                        />
-                      </svg>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4">
+                <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow h-48">
+                  <div className="card-body flex flex-col justify-between text-center p-4">
+                    <div className="flex flex-col items-center">
+                      <div className="w-12 h-12 mb-3 bg-primary/10 rounded-full flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6 text-primary"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h4M9 7h6m-6 4h6m-6 4h6"
+                          />
+                        </svg>
+                      </div>
+                      <h3 className="card-title text-base font-semibold mb-2">Ресторант</h3>
+                      <p className="text-xs text-base-content/70 mb-3">
+                        Настройки и информация
+                      </p>
                     </div>
-                    <h3 className="card-title text-lg">Настройки на ресторанта</h3>
-                    <p className="text-sm text-base-content/70">
-                      Управлявайте информацията и настройките на вашия ресторант
-                    </p>
-                    <div className="card-actions">
-                      <a
+                    <div className="card-actions justify-center">
+                      <Link
                         href="/dashboard/restaurant"
-                        className="btn btn-primary btn-sm"
+                        className="btn btn-primary btn-sm w-full"
                       >
                         Управление
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
 
-                <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow">
-                  <div className="card-body text-center">
-                    <div className="w-12 h-12 mx-auto mb-4 bg-secondary/10 rounded-full flex items-center justify-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 text-secondary"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                        />
-                      </svg>
+                <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow h-48">
+                  <div className="card-body flex flex-col justify-between text-center p-4">
+                    <div className="flex flex-col items-center">
+                      <div className="w-12 h-12 mb-3 bg-secondary/10 rounded-full flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6 text-secondary"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                          />
+                        </svg>
+                      </div>
+                      <h3 className="card-title text-base font-semibold mb-2">Меню</h3>
+                      <p className="text-xs text-base-content/70 mb-3">
+                        Категории и продукти
+                      </p>
                     </div>
-                    <h3 className="card-title text-lg">Управление на менюто</h3>
-                    <p className="text-sm text-base-content/70">
-                      Добавете и организирайте категориите и елементите на вашето меню
-                    </p>
-                    <div className="card-actions">
-                      <a
+                    <div className="card-actions justify-center">
+                      <Link
                         href="/dashboard/menu"
-                        className="btn btn-secondary btn-sm"
+                        className="btn btn-secondary btn-sm w-full"
                       >
-                        Управление на менюто
-                      </a>
+                        Управление
+                      </Link>
                     </div>
                   </div>
                 </div>
 
-                <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow">
-                  <div className="card-body text-center">
-                    <div className="w-12 h-12 mx-auto mb-4 bg-accent/10 rounded-full flex items-center justify-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 text-accent"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
-                        />
-                      </svg>
+                <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow h-48">
+                  <div className="card-body flex flex-col justify-between text-center p-4">
+                    <div className="flex flex-col items-center">
+                      <div className="w-12 h-12 mb-3 bg-accent/10 rounded-full flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6 text-accent"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
+                          />
+                        </svg>
+                      </div>
+                      <h3 className="card-title text-base font-semibold mb-2">Преводи</h3>
+                      <p className="text-xs text-base-content/70 mb-3">
+                        Многоезично меню
+                      </p>
                     </div>
-                    <h3 className="card-title text-lg">Преводи</h3>
-                    <p className="text-sm text-base-content/70">
-                      Управлявайте многоезичните преводи на менюто
-                    </p>
-                    <div className="card-actions">
-                      <a
+                    <div className="card-actions justify-center">
+                      <Link
                         href="/dashboard/translations"
-                        className="btn btn-accent btn-sm"
+                        className="btn btn-accent btn-sm w-full"
                       >
-                        Управление на езиците
-                      </a>
+                        Управление
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow h-48">
+                  <div className="card-body flex flex-col justify-between text-center p-4">
+                    <div className="flex flex-col items-center">
+                      <div className="w-12 h-12 mb-3 bg-info/10 rounded-full flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6 text-info"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"
+                          />
+                        </svg>
+                      </div>
+                      <h3 className="card-title text-base font-semibold mb-2">QR кодове</h3>
+                      <p className="text-xs text-base-content/70 mb-3">
+                        Генерирай за менюто
+                      </p>
+                    </div>
+                    <div className="card-actions justify-center">
+                      <Link 
+                        href="/dashboard/qr-generator"
+                        className="btn btn-info btn-sm w-full"
+                      >
+                        Създай
+                      </Link>
                     </div>
                   </div>
                 </div>
