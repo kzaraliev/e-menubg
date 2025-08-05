@@ -7,6 +7,7 @@ import Category from "@/models/Category";
 import MenuProduct from "@/models/MenuProduct";
 import Translation from "@/models/Translation";
 import TranslationManager from "@/components/dashboard/TranslationManager";
+import Link from "next/link";
 
 export default async function TranslationsPage() {
   await connectMongo();
@@ -51,9 +52,9 @@ export default async function TranslationsPage() {
               </svg>
               <span>Нуждаете се първо да създадете ресторант, преди да управлявате преводите.</span>
             </div>
-            <a href="/dashboard/restaurant" className="btn btn-primary mt-4">
+            <Link href="/dashboard/restaurant" className="btn btn-primary mt-4">
               Създайте ресторант
-            </a>
+            </Link>
           </div>
         </section>
       </main>
@@ -109,13 +110,13 @@ export default async function TranslationsPage() {
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <a 
+            <Link 
               href={`/${restaurant.slug}`} 
               target="_blank"
               className="btn btn-outline btn-sm"
             >
               Вижте публичното меню
-            </a>
+            </Link>
           </div>
         </div>
         

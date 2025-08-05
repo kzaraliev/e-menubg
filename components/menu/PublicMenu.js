@@ -8,6 +8,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { getUIText } from "@/libs/uiTranslations";
 
 import config from "@/config";
+import Link from "next/link";
 
 export default function PublicMenu({ menuData }) {
   const { restaurant: initialRestaurant, categories: initialCategories, availableLanguages } = menuData;
@@ -264,12 +265,12 @@ export default function PublicMenu({ menuData }) {
             {/* Powered by */}
             <div>
               <h3 className="font-semibold text-lg mb-4">Powered by</h3>
-              <a 
+              <Link
                 href="/" 
                 className="text-primary font-semibold hover:underline"
               >
                 {config.appName}
-              </a>
+              </Link>
               <p className="text-xs text-base-content/50 mt-2">
                 Digital menu platform for restaurants
               </p>

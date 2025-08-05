@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import config from "@/config";
+import Link from "next/link";
 
 // Use this object to add an icon to the testimonial (optional) like the Product Hunt logo for instance. Only change the values if you add more referrings sites (currently Twitter & Product Hunt)
 const refTypes = {
@@ -179,14 +180,14 @@ const Testimonial = ({ i }) => {
             </div>
 
             {testimonial.link && testimonial.type?.svg && (
-              <a
+              <Link
                 href={testimonial.link}
                 target="_blank"
                 className="shrink-0 "
                 aria-label={testimonial.type?.ariaLabel}
               >
                 {testimonial.type?.svg}
-              </a>
+              </Link>
             )}
           </div>
         </figcaption>

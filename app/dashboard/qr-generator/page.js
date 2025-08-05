@@ -4,6 +4,7 @@ import connectMongo from "@/libs/mongoose";
 import User from "@/models/User";
 import Restaurant from "@/models/Restaurant";
 import QRCodeGenerator from "./components/QRCodeGenerator";
+import Link from "next/link";
 
 export default async function QRGeneratorPage() {
   await connectMongo();
@@ -25,9 +26,9 @@ export default async function QRGeneratorPage() {
               </svg>
               <span>Нуждае се активен абонамент за генериране на QR кодове.</span>
             </div>
-            <a href="/#pricing" className="btn btn-primary mt-4">
+            <Link href="/#pricing" className="btn btn-primary mt-4">
               Вижте ценовите планове
-            </a>
+            </Link>
           </div>
         </section>
       </main>

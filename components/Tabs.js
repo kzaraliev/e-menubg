@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 // The list of tabs to be displayed. It only shows the content of the active tab.
 // - icon is optional
@@ -150,7 +151,7 @@ const Tabs = () => {
 				style={{ gridTemplateColumns: `repeat(${tabs.length}, 1fr)` }}
 			>
 				{tabs.map((tab) => (
-					<a
+					<Link
 						key={tab.id}
 						role="tab"
 						className={`flex cursor-pointer select-none items-center justify-center gap-2 rounded-lg py-2 text-sm font-medium ${
@@ -162,7 +163,7 @@ const Tabs = () => {
 					>
 						{tab.icon}
 						{tab.title}
-					</a>
+					</Link>
 				))}
 			</div>
 

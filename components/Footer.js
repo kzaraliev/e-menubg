@@ -36,7 +36,7 @@ const Footer = () => {
             <p className="mt-3 text-sm text-base-content/60">
               Copyright © {new Date().getFullYear()} - All rights reserved
             </p>
-            <a
+            <Link
               href="https://shipfa.st/?ref=shipfast_badge"
               title="Go to ShipFast"
               target="_blank"
@@ -61,7 +61,7 @@ const Footer = () => {
                   ShipFast
                 </span>
               </div>
-            </a>
+            </Link>
           </div>
           <div className="flex-grow flex flex-wrap justify-center -mb-10 md:mt-0 mt-10 text-center">
             <div className="lg:w-1/3 md:w-1/2 w-full px-4">
@@ -71,14 +71,14 @@ const Footer = () => {
 
               <div className="flex flex-col justify-center items-center md:items-start gap-2 mb-10 text-sm">
                 {config.resend.supportEmail && (
-                  <a
+                  <Link
                     href={`mailto:${config.resend.supportEmail}`}
                     target="_blank"
                     className="link link-hover"
                     aria-label="Contact Support"
                   >
                     Support
-                  </a>
+                  </Link>
                 )}
                 <Link href="/#pricing" className="link link-hover">
                   Pricing
@@ -86,9 +86,9 @@ const Footer = () => {
                 <Link href="/blog" className="link link-hover">
                   Blog
                 </Link>
-                <a href="/#" target="_blank" className="link link-hover">
+                <Link href="/#" target="_blank" className="link link-hover">
                   Affiliates
-                </a>
+                </Link>
               </div>
             </div>
 

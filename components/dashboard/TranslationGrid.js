@@ -3,6 +3,7 @@
 import { useState } from "react";
 import TranslationField from "./TranslationField";
 import config from "@/config";
+import Link from "next/link";
 
 export default function TranslationGrid({ 
   restaurant, 
@@ -281,9 +282,9 @@ export default function TranslationGrid({
             <p className="text-base-content/70 mb-4">
               Създайте категории и продукти в менюто, преди да добавите преводи.
             </p>
-            <a href="/dashboard/menu" className="btn btn-primary">
+            <Link href="/dashboard/menu" className="btn btn-primary">
               Управление на менюто
-            </a>
+            </Link>
           </div>
         </div>
       )}
