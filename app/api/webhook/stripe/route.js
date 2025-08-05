@@ -4,6 +4,7 @@ import Stripe from "stripe";
 import connectMongo from "@/libs/mongoose";
 import configFile from "@/config";
 import User from "@/models/User";
+import Restaurant from "@/models/Restaurant";
 import { findCheckoutSession } from "@/libs/stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -79,6 +80,14 @@ export async function POST(req) {
         user.hasAccess = true;
         await user.save();
 
+        // Update restaurant visibility if user has one
+        if (user.restaurantId) {
+          await Restaurant.updateOne(
+            { _id: user.restaurantId },
+            { isPublished: true }
+          );
+        }
+
         // Extra: send email with user link, product page, etc...
         // try {
         //   await sendEmail({to: ...});
@@ -115,6 +124,14 @@ export async function POST(req) {
         user.hasAccess = false;
         await user.save();
 
+        // Hide restaurant menu if user has one
+        if (user.restaurantId) {
+          await Restaurant.updateOne(
+            { _id: user.restaurantId },
+            { isPublished: false }
+          );
+        }
+
         break;
       }
 
@@ -132,6 +149,14 @@ export async function POST(req) {
         // Grant user access to your product. It's a boolean in the database, but could be a number of credits, etc...
         user.hasAccess = true;
         await user.save();
+
+        // Update restaurant visibility if user has one
+        if (user.restaurantId) {
+          await Restaurant.updateOne(
+            { _id: user.restaurantId },
+            { isPublished: true }
+          );
+        }
 
         break;
       }

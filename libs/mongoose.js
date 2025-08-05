@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 import User from "@/models/User";
+import Restaurant from "@/models/Restaurant";
+import Category from "@/models/Category";
+import MenuProduct from "@/models/MenuProduct";
+import Translation from "@/models/Translation";
 
 const connectMongo = async () => {
   if (!process.env.MONGODB_URI) {

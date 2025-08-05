@@ -14,6 +14,9 @@ const userSchema = mongoose.Schema(
       lowercase: true,
       private: true,
     },
+    emailVerified: {
+      type: Date,
+    },
     image: {
       type: String,
     },
@@ -36,6 +39,16 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    // Restaurant management fields
+    restaurantId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Restaurant',
+      default: null
+    },
+    lastMenuUpdate: {
+      type: Date,
+      default: Date.now
+    }
   },
   {
     timestamps: true,
