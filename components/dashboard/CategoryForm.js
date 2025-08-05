@@ -26,23 +26,23 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
   }, [category]);
 
   const iconOptions = [
-    { value: "", label: "No Icon" },
-    { value: "utensils", label: "🍽️ General" },
-    { value: "coffee", label: "☕ Coffee & Drinks" },
-    { value: "pizza", label: "🍕 Pizza" },
-    { value: "wine", label: "🍷 Wine & Alcohol" },
-    { value: "dessert", label: "🍰 Desserts" },
-    { value: "salad", label: "🥗 Salads" },
-    { value: "burger", label: "🍔 Burgers" },
-    { value: "pasta", label: "🍝 Pasta" },
-    { value: "fish", label: "🐟 Seafood" },
-    { value: "meat", label: "🥩 Meat" },
-    { value: "vegetarian", label: "🥬 Vegetarian" },
-    { value: "soup", label: "🍲 Soups" },
-    { value: "bread", label: "🍞 Bakery" },
-    { value: "breakfast", label: "🍳 Breakfast" },
-    { value: "cocktail", label: "🍸 Cocktails" },
-    { value: "beer", label: "🍺 Beer" }
+    { value: "", label: "Без икона" },
+    { value: "utensils", label: "🍽️ Общо" },
+    { value: "coffee", label: "☕ Кафе и напитки" },
+    { value: "pizza", label: "🍕 Пица" },
+    { value: "wine", label: "🍷 Вино и алкохол" },
+    { value: "dessert", label: "🍰 Десерти" },
+    { value: "salad", label: "🥗 Салати" },
+    { value: "burger", label: "🍔 Хамбургери" },
+    { value: "pasta", label: "🍝 Паста" },
+    { value: "fish", label: "🐟 Морски дарове" },
+    { value: "meat", label: "🥩 Месо" },
+    { value: "vegetarian", label: "🥬 Вегетарианско" },
+    { value: "soup", label: "🍲 Супи" },
+    { value: "bread", label: "🍞 Пекарни изделия" },
+    { value: "breakfast", label: "🍳 Закуска" },
+    { value: "cocktail", label: "🍸 Коктейли" },
+    { value: "beer", label: "🍺 Бира" }
   ];
 
   const handleInputChange = (e) => {
@@ -62,7 +62,7 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
     const newErrors = {};
     
     if (!formData.name.trim()) {
-      newErrors.name = "Category name is required";
+      newErrors.name = "Името на категорията е задължително";
     }
     
     setErrors(newErrors);
@@ -89,7 +89,7 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
           <div className="sticky top-0 bg-base-100 p-6 border-b border-base-300">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold">
-                {category ? "Edit Category" : "Create Category"}
+                {category ? "Редактирай категория" : "Създай категория"}
               </h2>
               <button
                 type="button"
@@ -109,7 +109,7 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
             <div className="space-y-4">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-medium">Category Name *</span>
+                  <span className="label-text font-medium">Име на категория *</span>
                 </label>
                 <input
                   type="text"
@@ -117,7 +117,7 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
                   value={formData.name}
                   onChange={handleInputChange}
                   className={`input input-bordered ${errors.name ? "input-error" : ""}`}
-                  placeholder="e.g., Appetizers, Main Courses, Beverages"
+                  placeholder="напр. Предястия, Основни ястия, Напитки"
                   required
                 />
                 {errors.name && <span className="text-error text-sm mt-1">{errors.name}</span>}
@@ -125,25 +125,25 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
 
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-medium">Description</span>
+                  <span className="label-text font-medium">Описание</span>
                 </label>
                 <textarea
                   name="description"
                   value={formData.description}
                   onChange={handleInputChange}
                   className="textarea textarea-bordered h-24"
-                  placeholder="Optional description for this category"
+                  placeholder="Незадължително описание на категорията"
                 />
               </div>
             </div>
 
             {/* Visual Options */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Visual Options</h3>
+              <h3 className="text-lg font-semibold">Визуални опции</h3>
               
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-medium">Icon</span>
+                  <span className="label-text font-medium">Икона</span>
                 </label>
                 <select
                   name="iconName"
@@ -158,13 +158,13 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
                   ))}
                 </select>
                 <label className="label">
-                  <span className="label-text-alt">Choose an icon to represent this category</span>
+                  <span className="label-text-alt">Изберете икона, която да представлява тази категория</span>
                 </label>
               </div>
 
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-medium">Image URL</span>
+                  <span className="label-text font-medium">URL на изображение</span>
                 </label>
                 <input
                   type="url"
@@ -175,7 +175,7 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
                   placeholder="https://example.com/category-image.jpg"
                 />
                 <label className="label">
-                  <span className="label-text-alt">Optional image for the category header</span>
+                  <span className="label-text-alt">Незадължително изображение за заглавието на категорията</span>
                 </label>
               </div>
 
@@ -183,12 +183,12 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
               {formData.imageUrl && (
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">Preview</span>
+                    <span className="label-text font-medium">Предварителен преглед</span>
                   </label>
                   <div className="w-32 h-24 bg-base-200 rounded-lg overflow-hidden">
                     <img 
                       src={formData.imageUrl} 
-                      alt="Category preview"
+                      alt="Предварителен преглед на категорията"
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         e.target.style.display = 'none';
@@ -201,11 +201,11 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
 
             {/* Settings */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Settings</h3>
+              <h3 className="text-lg font-semibold">Настройки</h3>
               
               <div className="form-control">
                 <label className="label cursor-pointer">
-                  <span className="label-text font-medium">Active</span>
+                  <span className="label-text font-medium">Активна</span>
                   <input
                     type="checkbox"
                     name="isActive"
@@ -215,7 +215,7 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
                   />
                 </label>
                 <label className="label">
-                  <span className="label-text-alt">Inactive categories are hidden from customers</span>
+                  <span className="label-text-alt">Неактивните категории са скрити от клиентите</span>
                 </label>
               </div>
             </div>
@@ -230,7 +230,7 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
                 className="btn btn-outline"
                 disabled={isLoading}
               >
-                Cancel
+                Отказ
               </button>
               <button
                 type="submit"
@@ -238,7 +238,7 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
                 disabled={isLoading}
               >
                 {isLoading && <span className="loading loading-spinner loading-sm"></span>}
-                {category ? "Update Category" : "Create Category"}
+                {category ? "Обнови категорията" : "Създай категория"}
               </button>
             </div>
           </div>

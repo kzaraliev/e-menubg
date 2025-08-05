@@ -10,7 +10,8 @@ export default function TranslationField({
   onDelete, 
   hasTranslation, 
   isLoading, 
-  isTextarea = false 
+  isTextarea = false,
+  isDefaultLanguage = false 
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(translatedText || "");
@@ -65,7 +66,7 @@ export default function TranslationField({
       <div>
         <label className="label">
           <span className="label-text font-medium">{label}</span>
-          <span className="label-text-alt">Original (Bulgarian)</span>
+          <span className="label-text-alt">Оригинален (Български)</span>
         </label>
         <div className="bg-base-200 p-3 rounded border text-sm">
           {originalText}
@@ -75,25 +76,48 @@ export default function TranslationField({
       {/* Translation */}
       <div>
         <label className="label">
-          <span className="label-text font-medium">Translation</span>
+          <span className="label-text font-medium">
+            {isDefaultLanguage ? "Оригинален текст" : "Превод"}
+          </span>
           <div className="flex items-center gap-2">
-            {hasTranslation && (
-              <span className="badge badge-success badge-xs">Translated</span>
+            {isDefaultLanguage ? (
+              <span className="badge badge-info badge-xs">Изходен език</span>
+            ) : (
+              <>
+                {hasTranslation && (
+                  <span className="badge badge-success badge-xs">Преведен</span>
+                )}
+                <span className="label-text-alt">
+                  {isEditing ? "Редактиране..." : "Натиснете за да редактирате"}
+                </span>
+              </>
             )}
-            <span className="label-text-alt">
-              {isEditing ? "Editing..." : "Click to edit"}
-            </span>
           </div>
         </label>
         
-        {isEditing ? (
+        {isDefaultLanguage ? (
+          // Show original text for default language (read-only)
+          <div className="bg-info/10 border border-info/30 p-3 rounded">
+            <div className="flex items-center gap-2 mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-info" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-sm text-info font-medium">
+                Това е изходният текст на български език. Преводите се създават за други езици.
+              </span>
+            </div>
+            <div className="text-base-content font-medium">
+              {originalText}
+            </div>
+          </div>
+        ) : isEditing ? (
           <div className="space-y-3">
             <InputComponent
               {...inputProps}
               value={value}
               onChange={(e) => setValue(e.target.value)}
               className="input input-bordered w-full"
-              placeholder={`Enter ${label.toLowerCase()} in selected language...`}
+              placeholder={`Въведете ${label.toLowerCase()} на избрания език...`}
               disabled={isSaving}
               autoFocus
             />
@@ -105,7 +129,7 @@ export default function TranslationField({
                 className="btn btn-primary btn-sm"
               >
                 {isSaving && <span className="loading loading-spinner loading-xs"></span>}
-                Save
+                Запази
               </button>
               
               <button
@@ -113,7 +137,7 @@ export default function TranslationField({
                 disabled={isSaving}
                 className="btn btn-ghost btn-sm"
               >
-                Cancel
+                Отказ
               </button>
               
               {hasTranslation && (
@@ -123,7 +147,7 @@ export default function TranslationField({
                   className="btn btn-error btn-outline btn-sm ml-auto"
                 >
                   {isSaving && <span className="loading loading-spinner loading-xs"></span>}
-                  Delete
+                  Изтрий
                 </button>
               )}
             </div>
@@ -141,7 +165,7 @@ export default function TranslationField({
               <span className="text-base-content">{translatedText}</span>
             ) : (
               <span className="text-base-content/50 italic">
-                Click to add translation...
+                Натиснете за да добавите превод...
               </span>
             )}
           </div>

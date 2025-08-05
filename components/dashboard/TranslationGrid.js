@@ -15,6 +15,9 @@ export default function TranslationGrid({
   translationsMap,
   isLoading 
 }) {
+  // Check if selected language is the default language (Bulgarian)
+  const defaultLanguage = restaurant.settings?.defaultLanguage || "bg";
+  const isDefaultLanguage = selectedLanguage === defaultLanguage;
   const [expandedSections, setExpandedSections] = useState({
     restaurant: true,
     categories: true,
@@ -47,7 +50,7 @@ export default function TranslationGrid({
         <div className="card-body">
           <div className="flex items-center justify-between">
             <h2 className="card-title">
-              🏪 Restaurant Information
+              🏪 Информация за ресторанта
             </h2>
             <button
               onClick={() => toggleSection('restaurant')}
@@ -60,7 +63,7 @@ export default function TranslationGrid({
           {expandedSections.restaurant && (
             <div className="space-y-4 mt-4">
               <TranslationField
-                label="Restaurant Name"
+                label="Име на ресторанта"
                 originalText={restaurant.name}
                 translatedText={getTranslation("restaurant", restaurant._id, "name", selectedLanguage)}
                 onSave={(text) => onSaveTranslation("restaurant", restaurant._id, "name", selectedLanguage, text)}
@@ -72,11 +75,12 @@ export default function TranslationGrid({
                 }}
                 hasTranslation={!!getTranslation("restaurant", restaurant._id, "name", selectedLanguage)}
                 isLoading={isLoading}
+                isDefaultLanguage={isDefaultLanguage}
               />
               
               {restaurant.description && (
                 <TranslationField
-                  label="Restaurant Description"
+                  label="Описание на ресторанта"
                   originalText={restaurant.description}
                   translatedText={getTranslation("restaurant", restaurant._id, "description", selectedLanguage)}
                   onSave={(text) => onSaveTranslation("restaurant", restaurant._id, "description", selectedLanguage, text)}
@@ -89,6 +93,7 @@ export default function TranslationGrid({
                   hasTranslation={!!getTranslation("restaurant", restaurant._id, "description", selectedLanguage)}
                   isLoading={isLoading}
                   isTextarea={true}
+                  isDefaultLanguage={isDefaultLanguage}
                 />
               )}
             </div>
@@ -102,7 +107,7 @@ export default function TranslationGrid({
           <div className="card-body">
             <div className="flex items-center justify-between">
               <h2 className="card-title">
-                📁 Categories ({categories.length})
+                📁 Категории ({categories.length})
               </h2>
               <button
                 onClick={() => toggleSection('categories')}
@@ -127,7 +132,7 @@ export default function TranslationGrid({
                     
                     <div className="space-y-4">
                       <TranslationField
-                        label="Category Name"
+                        label="Име на категория"
                         originalText={category.name}
                         translatedText={getTranslation("category", category._id, "name", selectedLanguage)}
                         onSave={(text) => onSaveTranslation("category", category._id, "name", selectedLanguage, text)}
@@ -139,11 +144,12 @@ export default function TranslationGrid({
                         }}
                         hasTranslation={!!getTranslation("category", category._id, "name", selectedLanguage)}
                         isLoading={isLoading}
+                        isDefaultLanguage={isDefaultLanguage}
                       />
                       
                       {category.description && (
                         <TranslationField
-                          label="Category Description"
+                          label="Описание на категория"
                           originalText={category.description}
                           translatedText={getTranslation("category", category._id, "description", selectedLanguage)}
                           onSave={(text) => onSaveTranslation("category", category._id, "description", selectedLanguage, text)}
@@ -156,6 +162,7 @@ export default function TranslationGrid({
                           hasTranslation={!!getTranslation("category", category._id, "description", selectedLanguage)}
                           isLoading={isLoading}
                           isTextarea={true}
+                          isDefaultLanguage={isDefaultLanguage}
                         />
                       )}
                     </div>
@@ -173,7 +180,7 @@ export default function TranslationGrid({
           <div className="card-body">
             <div className="flex items-center justify-between">
               <h2 className="card-title">
-                🍽️ Menu Products ({products.length})
+                🍽️ Меню ({products.length})
               </h2>
               <button
                 onClick={() => toggleSection('products')}
@@ -188,7 +195,7 @@ export default function TranslationGrid({
                 {productsByCategory.map(({ category, products: categoryProducts }) => (
                   <div key={category._id}>
                     <h3 className="font-semibold text-lg mb-4 text-primary">
-                      {category.name} ({categoryProducts.length} products)
+                      {category.name} ({categoryProducts.length})
                     </h3>
                     
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -203,7 +210,7 @@ export default function TranslationGrid({
                           
                           <div className="space-y-4">
                             <TranslationField
-                              label="Product Name"
+                              label="Име на продукт"
                               originalText={product.name}
                               translatedText={getTranslation("menuProduct", product._id, "name", selectedLanguage)}
                               onSave={(text) => onSaveTranslation("menuProduct", product._id, "name", selectedLanguage, text)}
@@ -215,11 +222,12 @@ export default function TranslationGrid({
                               }}
                               hasTranslation={!!getTranslation("menuProduct", product._id, "name", selectedLanguage)}
                               isLoading={isLoading}
+                              isDefaultLanguage={isDefaultLanguage}
                             />
                             
                             {product.description && (
                               <TranslationField
-                                label="Product Description"
+                                label="Описание на продукт"
                                 originalText={product.description}
                                 translatedText={getTranslation("menuProduct", product._id, "description", selectedLanguage)}
                                 onSave={(text) => onSaveTranslation("menuProduct", product._id, "description", selectedLanguage, text)}
@@ -232,12 +240,13 @@ export default function TranslationGrid({
                                 hasTranslation={!!getTranslation("menuProduct", product._id, "description", selectedLanguage)}
                                 isLoading={isLoading}
                                 isTextarea={true}
+                                isDefaultLanguage={isDefaultLanguage}
                               />
                             )}
                             
                             {product.size && (
                               <TranslationField
-                                label="Size/Portion"
+                                label="Размер/Порция"
                                 originalText={product.size}
                                 translatedText={getTranslation("menuProduct", product._id, "size", selectedLanguage)}
                                 onSave={(text) => onSaveTranslation("menuProduct", product._id, "size", selectedLanguage, text)}
@@ -249,6 +258,7 @@ export default function TranslationGrid({
                                 }}
                                 hasTranslation={!!getTranslation("menuProduct", product._id, "size", selectedLanguage)}
                                 isLoading={isLoading}
+                                isDefaultLanguage={isDefaultLanguage}
                               />
                             )}
                           </div>
@@ -267,12 +277,12 @@ export default function TranslationGrid({
       {categories.length === 0 && products.length === 0 && (
         <div className="card bg-base-100 shadow-lg">
           <div className="card-body text-center">
-            <h3 className="text-xl font-semibold mb-2">No Menu Content Yet</h3>
+            <h3 className="text-xl font-semibold mb-2">Няма съдържание в менюто</h3>
             <p className="text-base-content/70 mb-4">
-              Create categories and menu items first before adding translations.
+              Създайте категории и продукти в менюто, преди да добавите преводи.
             </p>
             <a href="/dashboard/menu" className="btn btn-primary">
-              Manage Menu
+              Управление на менюто
             </a>
           </div>
         </div>

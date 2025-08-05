@@ -60,13 +60,13 @@ export default function MenuManager({ restaurant, initialCategories, initialProd
     
     // Safety check
     if (!restaurant?._id) {
-      toast.error("Restaurant ID is missing. Please refresh the page and try again.");
+      toast.error("Липсва ID на ресторанта. Моля, обновете страницата и опитайте отново.");
       setIsLoading(false);
       return;
     }
     
     if (!categoryData?.name?.trim()) {
-      toast.error("Category name is required.");
+      toast.error("Името на категорията е задължително.");
       setIsLoading(false);
       return;
     }
@@ -99,7 +99,7 @@ export default function MenuManager({ restaurant, initialCategories, initialProd
       const newCategory = await response.json();
       setCategories(prev => [...prev, newCategory]);
       setShowCategoryForm(false);
-      toast.success("Category created successfully!");
+      toast.success("Категорията бе създадена успешно!");
       
       // Select the new category
       setSelectedCategory(newCategory);
@@ -133,7 +133,7 @@ export default function MenuManager({ restaurant, initialCategories, initialProd
       );
       setEditingCategory(null);
       setShowCategoryForm(false);
-      toast.success("Category updated successfully!");
+      toast.success("Категорията бе обновена успешно!");
       
       // Update selected category if it was being edited
       if (selectedCategory?._id === categoryId) {

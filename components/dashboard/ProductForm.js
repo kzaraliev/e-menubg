@@ -85,15 +85,15 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
     const newErrors = {};
     
     if (!formData.name.trim()) {
-      newErrors.name = "Product name is required";
+      newErrors.name = "Името на продукта е задължително";
     }
     
     if (!formData.priceBGN || parseFloat(formData.priceBGN) <= 0) {
-      newErrors.priceBGN = "Valid price is required";
+      newErrors.priceBGN = "Нуждает се валидна цена";
     }
     
     if (formData.preparationTime && (isNaN(formData.preparationTime) || parseInt(formData.preparationTime) < 0)) {
-      newErrors.preparationTime = "Preparation time must be a positive number";
+      newErrors.preparationTime = "Времето за приготвяне трябва да е положително число";
     }
     
     setErrors(newErrors);
@@ -127,9 +127,9 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
           <div className="sticky top-0 bg-base-100 p-6 border-b border-base-300">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold">
-                {product ? "Edit Product" : "Add Product"} 
+                {product ? "Редактирай продукт" : "Добави продукт"} 
                 <span className="text-base font-normal text-base-content/70 ml-2">
-                  in {category.name}
+                  в {category.name}
                 </span>
               </h2>
               <button
@@ -149,11 +149,11 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
             {/* Basic Information */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Basic Information</h3>
+                <h3 className="text-lg font-semibold">Основна информация</h3>
                 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">Product Name *</span>
+                    <span className="label-text font-medium">Име на продукта *</span>
                   </label>
                   <input
                     type="text"
@@ -161,7 +161,7 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
                     value={formData.name}
                     onChange={handleInputChange}
                     className={`input input-bordered ${errors.name ? "input-error" : ""}`}
-                    placeholder="e.g., Margherita Pizza"
+                    placeholder="напр. Маргарита Пица"
                     required
                   />
                   {errors.name && <span className="text-error text-sm mt-1">{errors.name}</span>}
@@ -169,20 +169,20 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">Description</span>
+                    <span className="label-text font-medium">Описание</span>
                   </label>
                   <textarea
                     name="description"
                     value={formData.description}
                     onChange={handleInputChange}
                     className="textarea textarea-bordered h-24"
-                    placeholder="Describe ingredients, preparation, or what makes this special"
+                    placeholder="Опишете съставките, начина на приготвяне или какво прави този продукт специален"
                   />
                 </div>
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">Size/Portion</span>
+                    <span className="label-text font-medium">Размер/Порция</span>
                   </label>
                   <input
                     type="text"
@@ -190,13 +190,13 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
                     value={formData.size}
                     onChange={handleInputChange}
                     className="input input-bordered"
-                    placeholder="e.g., 350ml, Large, Family Size"
+                    placeholder="напр. 350мл, Голям, Семеен размер"
                   />
                 </div>
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">Preparation Time (minutes)</span>
+                    <span className="label-text font-medium">Време за приготвяне (минути)</span>
                   </label>
                   <input
                     type="number"
@@ -212,11 +212,11 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
               </div>
 
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Pricing & Image</h3>
+                <h3 className="text-lg font-semibold">Цени и изображение</h3>
                 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">Price (BGN) *</span>
+                    <span className="label-text font-medium">Цена (лв.) *</span>
                   </label>
                   <input
                     type="number"
@@ -241,7 +241,7 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
 
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">Image URL</span>
+                    <span className="label-text font-medium">URL на изображение</span>
                   </label>
                   <input
                     type="url"
@@ -257,12 +257,12 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
                 {formData.imageUrl && (
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text font-medium">Preview</span>
+                      <span className="label-text font-medium">Предварителен преглед</span>
                     </label>
                     <div className="w-48 h-36 bg-base-200 rounded-lg overflow-hidden">
                       <img 
                         src={formData.imageUrl} 
-                        alt="Product preview"
+                        alt="Предварителен преглед на продукта"
                         className="w-full h-full object-cover"
                         onError={(e) => {
                           e.target.style.display = 'none';
@@ -276,11 +276,11 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
 
             {/* Allergens */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Allergens</h3>
+              <h3 className="text-lg font-semibold">Алергени</h3>
               
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-medium">Add Allergen</span>
+                  <span className="label-text font-medium">Добави алерген</span>
                 </label>
                 <div className="flex gap-2">
                   <input
@@ -288,7 +288,7 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
                     value={allergenInput}
                     onChange={(e) => setAllergenInput(e.target.value)}
                     className="input input-bordered flex-1"
-                    placeholder="Type allergen name"
+                    placeholder="Въведете име на алерген"
                     onKeyPress={(e) => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
@@ -301,14 +301,14 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
                     onClick={() => addAllergen(allergenInput)}
                     className="btn btn-outline"
                   >
-                    Add
+                    Добави
                   </button>
                 </div>
               </div>
 
               <div className="space-y-2">
                 <label className="label">
-                  <span className="label-text font-medium">Common Allergens</span>
+                  <span className="label-text font-medium">Общи алергени</span>
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {commonAllergens.map(allergen => (
@@ -332,7 +332,7 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
               {formData.allergens.length > 0 && (
                 <div className="space-y-2">
                   <label className="label">
-                    <span className="label-text font-medium">Selected Allergens</span>
+                    <span className="label-text font-medium">Избрани алергени</span>
                   </label>
                   <div className="flex flex-wrap gap-2">
                     {formData.allergens.map(allergen => (
@@ -354,12 +354,12 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
 
             {/* Product Properties */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Product Properties</h3>
+              <h3 className="text-lg font-semibold">Свойства на продукта</h3>
               
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="form-control">
                   <label className="label cursor-pointer">
-                    <span className="label-text font-medium">Vegetarian</span>
+                    <span className="label-text font-medium">Вегетарианско</span>
                     <input
                       type="checkbox"
                       name="isVegetarian"
@@ -372,7 +372,7 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
 
                 <div className="form-control">
                   <label className="label cursor-pointer">
-                    <span className="label-text font-medium">Vegan</span>
+                    <span className="label-text font-medium">Веганско</span>
                     <input
                       type="checkbox"
                       name="isVegan"
@@ -385,7 +385,7 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
 
                 <div className="form-control">
                   <label className="label cursor-pointer">
-                    <span className="label-text font-medium">Spicy 🌶️</span>
+                    <span className="label-text font-medium">Остро 🌶️</span>
                     <input
                       type="checkbox"
                       name="isSpicy"
@@ -398,7 +398,7 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
 
                 <div className="form-control">
                   <label className="label cursor-pointer">
-                    <span className="label-text font-medium">Popular</span>
+                    <span className="label-text font-medium">Популярно</span>
                     <input
                       type="checkbox"
                       name="isPopular"
@@ -413,12 +413,12 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
 
             {/* Status */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Status</h3>
+              <h3 className="text-lg font-semibold">Статус</h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="form-control">
                   <label className="label cursor-pointer">
-                    <span className="label-text font-medium">Active</span>
+                    <span className="label-text font-medium">Активен</span>
                     <input
                       type="checkbox"
                       name="isActive"
@@ -428,13 +428,13 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
                     />
                   </label>
                   <label className="label">
-                    <span className="label-text-alt">Inactive products are hidden from customers</span>
+                    <span className="label-text-alt">Неактивните продукти са скрити от клиентите</span>
                   </label>
                 </div>
 
                 <div className="form-control">
                   <label className="label cursor-pointer">
-                    <span className="label-text font-medium">Available</span>
+                    <span className="label-text font-medium">Наличен</span>
                     <input
                       type="checkbox"
                       name="isAvailable"
@@ -444,7 +444,7 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
                     />
                   </label>
                   <label className="label">
-                    <span className="label-text-alt">Unavailable products show as "Out of Stock"</span>
+                    <span className="label-text-alt">Неналичните продукти се показват като "Няма на склад"</span>
                   </label>
                 </div>
               </div>
@@ -460,7 +460,7 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
                 className="btn btn-outline"
                 disabled={isLoading}
               >
-                Cancel
+                Отказ
               </button>
               <button
                 type="submit"
@@ -468,7 +468,7 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
                 disabled={isLoading}
               >
                 {isLoading && <span className="loading loading-spinner loading-sm"></span>}
-                {product ? "Update Product" : "Create Product"}
+                {product ? "Обнови продукта" : "Създай продукт"}
               </button>
             </div>
           </div>

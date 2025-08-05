@@ -34,7 +34,7 @@ export default function TranslationManager({ data }) {
   // Save translation
   const handleSaveTranslation = async (entityType, entityId, field, language, translatedText) => {
     if (!translatedText.trim()) {
-      toast.error("Translation text cannot be empty");
+      toast.error("Текстът на превода не може да е празен");
       return;
     }
 
@@ -69,7 +69,7 @@ export default function TranslationManager({ data }) {
         [key]: savedTranslation
       }));
 
-      toast.success("Translation saved successfully!");
+      toast.success("Преводът бе запазен успешно!");
     } catch (error) {
       console.error("Error saving translation:", error);
       toast.error(error.message);
@@ -80,7 +80,7 @@ export default function TranslationManager({ data }) {
 
   // Delete translation
   const handleDeleteTranslation = async (translationId, entityType, entityId, field, language) => {
-    if (!confirm("Are you sure you want to delete this translation?")) {
+    if (!confirm("Сигурни ли сте, че искате да изтриете този превод?")) {
       return;
     }
 
@@ -103,7 +103,7 @@ export default function TranslationManager({ data }) {
         return newMap;
       });
 
-      toast.success("Translation deleted successfully!");
+      toast.success("Преводът бе изтрит успешно!");
     } catch (error) {
       console.error("Error deleting translation:", error);
       toast.error(error.message);
@@ -115,7 +115,7 @@ export default function TranslationManager({ data }) {
   // Add new language
   const handleAddLanguage = async (languageCode) => {
     if (availableLanguages.includes(languageCode)) {
-      toast.error("Language already added");
+      toast.error("Езикът вече е добавен");
       return;
     }
 
@@ -141,7 +141,7 @@ export default function TranslationManager({ data }) {
       }
 
       setAvailableLanguages(prev => [...prev, languageCode]);
-      toast.success("Language added successfully!");
+      toast.success("Езикът бе добавен успешно!");
     } catch (error) {
       console.error("Error adding language:", error);
       toast.error(error.message);
@@ -153,11 +153,11 @@ export default function TranslationManager({ data }) {
   // Remove language
   const handleRemoveLanguage = async (languageCode) => {
     if (languageCode === restaurant.settings?.defaultLanguage || languageCode === "bg") {
-      toast.error("Cannot remove default language");
+      toast.error("Не можете да премахнете основния език");
       return;
     }
 
-    if (!confirm(`Are you sure you want to remove ${languageCode}? All translations for this language will be deleted.`)) {
+    if (!confirm(`Сигурни ли сте, че искате да премахнете ${languageCode}? Всички преводи за този език ще бъдат изтрити.`)) {
       return;
     }
 
@@ -202,7 +202,7 @@ export default function TranslationManager({ data }) {
         setSelectedLanguage(restaurant.settings?.defaultLanguage || "bg");
       }
 
-      toast.success("Language removed successfully!");
+      toast.success("Езикът бе премахнат успешно!");
     } catch (error) {
       console.error("Error removing language:", error);
       toast.error(error.message);
@@ -262,7 +262,7 @@ export default function TranslationManager({ data }) {
       {/* Language Management */}
       <div className="card bg-base-100 shadow-lg">
         <div className="card-body">
-          <h2 className="card-title">Language Management</h2>
+          <h2 className="card-title">Управление на езиците</h2>
           
           <LanguageSelector
             availableLanguages={availableLanguages}
@@ -278,23 +278,23 @@ export default function TranslationManager({ data }) {
       {/* Translation Progress */}
       <div className="card bg-base-100 shadow-lg">
         <div className="card-body">
-          <h2 className="card-title">Translation Progress</h2>
+          <h2 className="card-title">Напредък на превода</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="stat">
-              <div className="stat-title">Completion</div>
+              <div className="stat-title">Завършено</div>
               <div className="stat-value text-primary text-2xl">{currentStats.percentage}%</div>
-              <div className="stat-desc">{currentStats.translated} of {currentStats.total} fields</div>
+              <div className="stat-desc">{currentStats.translated} от {currentStats.total} полета</div>
             </div>
             
             <div className="stat">
-              <div className="stat-title">Remaining</div>
+              <div className="stat-title">Оставащи</div>
               <div className="stat-value text-2xl">{currentStats.remaining}</div>
-              <div className="stat-desc">fields to translate</div>
+              <div className="stat-desc">полета за превод</div>
             </div>
             
             <div className="stat">
-              <div className="stat-title">Language</div>
+              <div className="stat-title">Език</div>
               <div className="stat-value text-lg">
                 {config.menu.supportedLanguages.find(l => l.code === selectedLanguage)?.name || selectedLanguage}
               </div>
@@ -304,7 +304,7 @@ export default function TranslationManager({ data }) {
             </div>
             
             <div className="stat">
-              <div className="stat-title">Progress</div>
+              <div className="stat-title">Напредък</div>
               <div className="stat-value">
                 <progress 
                   className="progress progress-primary w-full" 
@@ -312,11 +312,26 @@ export default function TranslationManager({ data }) {
                   max="100"
                 ></progress>
               </div>
-              <div className="stat-desc">{currentStats.percentage}% complete</div>
+              <div className="stat-desc">{currentStats.percentage}% завършено</div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Language Info */}
+      {selectedLanguage === (restaurant.settings?.defaultLanguage || "bg") && (
+        <div className="alert alert-info">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <div>
+            <h3 className="font-bold">Изходен език (Български)</h3>
+            <div className="text-sm">
+              Това е оригиналният текст на вашия ресторант. Изберете друг език отгоре, за да добавите преводи.
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Translation Grid */}
       <TranslationGrid

@@ -20,13 +20,13 @@ export default async function TranslationsPage() {
         <section className="max-w-6xl mx-auto space-y-8">
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-extrabold mb-4">
-              Translation Management
+              Управление на преводите
             </h1>
             <div className="alert alert-warning">
               <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.924-.833-2.464 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
               </svg>
-              <span>Active subscription required to manage translations.</span>
+              <span>Нуждает се активен абонамент за управление на преводите.</span>
             </div>
           </div>
         </section>
@@ -43,16 +43,16 @@ export default async function TranslationsPage() {
         <section className="max-w-6xl mx-auto space-y-8">
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-extrabold mb-4">
-              Translation Management
+              Управление на преводите
             </h1>
             <div className="alert alert-info">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
-              <span>You need to create a restaurant first before managing translations.</span>
+              <span>Нуждаете се първо да създадете ресторант, преди да управлявате преводите.</span>
             </div>
             <a href="/dashboard/restaurant" className="btn btn-primary mt-4">
-              Create Restaurant
+              Създайте ресторант
             </a>
           </div>
         </section>
@@ -102,22 +102,19 @@ export default async function TranslationsPage() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl md:text-4xl font-extrabold">
-              Translation Management
+              Управление на преводите
             </h1>
             <p className="text-base-content/70 mt-2">
-              Manage multi-language translations for {restaurant.name}
+              Управлявайте многоезични преводи за {restaurant.name}
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <div className="badge badge-lg">
-              {restaurant.settings?.availableLanguages?.length || 1} Languages
-            </div>
             <a 
               href={`/${restaurant.slug}`} 
               target="_blank"
               className="btn btn-outline btn-sm"
             >
-              View Public Menu
+              Вижте публичното меню
             </a>
           </div>
         </div>

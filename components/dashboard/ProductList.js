@@ -30,7 +30,7 @@ export default function ProductList({
       <div className="card-body">
         <div className="flex items-center justify-between mb-4">
           <h2 className="card-title">
-            {category.name} Products
+            Продукти от {category.name}
             <span className="badge badge-primary">{products.length}</span>
           </h2>
         </div>
@@ -42,9 +42,9 @@ export default function ProductList({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2">No products in this category</h3>
+            <h3 className="text-lg font-semibold mb-2">Няма продукти в тази категория</h3>
             <p className="text-base-content/70 mb-4">
-              Add your first product to {category.name}
+              Добавете първия си продукт към {category.name}
             </p>
           </div>
         ) : (
@@ -84,35 +84,35 @@ export default function ProductList({
                         {/* Product badges */}
                         <div className="flex flex-wrap gap-2 mt-2">
                           {product.isPopular && (
-                            <span className="badge badge-secondary badge-sm">Popular</span>
+                            <span className="badge badge-secondary badge-sm">Популярно</span>
                           )}
                           {product.isVegetarian && (
-                            <span className="badge badge-success badge-sm">Vegetarian</span>
+                            <span className="badge badge-success badge-sm">Вегетарианско</span>
                           )}
                           {product.isVegan && (
-                            <span className="badge badge-success badge-sm">Vegan</span>
+                            <span className="badge badge-success badge-sm">Веганско</span>
                           )}
                           {product.isSpicy && (
-                            <span className="badge badge-warning badge-sm">Spicy 🌶️</span>
+                            <span className="badge badge-warning badge-sm">Остро 🌶️</span>
                           )}
                           {!product.isActive && (
-                            <span className="badge badge-error badge-sm">Hidden</span>
+                            <span className="badge badge-error badge-sm">Скрито</span>
                           )}
                           {!product.isAvailable && (
-                            <span className="badge badge-neutral badge-sm">Out of Stock</span>
+                            <span className="badge badge-neutral badge-sm">Няма на склад</span>
                           )}
                         </div>
 
                         {/* Additional info */}
                         <div className="flex items-center gap-4 mt-2 text-sm text-base-content/60">
                           {product.size && (
-                            <span>Size: {product.size}</span>
+                            <span>Размер: {product.size}</span>
                           )}
                           {product.preparationTime && (
                             <span>~{product.preparationTime} min</span>
                           )}
                           {product.allergens && product.allergens.length > 0 && (
-                            <span>Allergens: {product.allergens.join(', ')}</span>
+                            <span>Алергени: {product.allergens.join(', ')}</span>
                           )}
                         </div>
                       </div>
@@ -145,7 +145,7 @@ export default function ProductList({
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
-                                Edit
+                                Редактирай
                               </button>
                             </li>
                             <li>
@@ -157,7 +157,7 @@ export default function ProductList({
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                 </svg>
-                                Delete
+                                Изтрий
                               </button>
                             </li>
                           </ul>

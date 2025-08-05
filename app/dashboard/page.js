@@ -40,33 +40,33 @@ export default async function Dashboard() {
         <section className="max-w-4xl mx-auto space-y-8">
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-extrabold mb-4">
-              Dashboard
+              Контролен панел
           </h1>
-            <p className="text-lg">Welcome back, {user.name}! 👋</p>
+            <p className="text-lg">Добре дошли отново, {user.name}! 👋</p>
           </div>
 
           {/* Subscription Status */}
           <div className="card bg-base-100 shadow-lg">
             <div className="card-body">
-              <h2 className="card-title">Subscription Status</h2>
+              <h2 className="card-title">Статус на абонамента</h2>
               <div className="flex items-center gap-4">
                 <div
                   className={`badge badge-lg ${
                     user.hasAccess ? "badge-success" : "badge-error"
                   }`}
                 >
-                  {user.hasAccess ? "Active" : "Inactive"}
+                  {user.hasAccess ? "Активен" : "Неактивен"}
                 </div>
                 <span className="text-base-content/70">
                   {user.hasAccess
-                    ? "Your subscription is active"
-                    : "You need an active subscription to create restaurants"}
+                    ? "Вашият абонамент е активен"
+                    : "Нуждаете се от активен абонамент, за да създадете ресторанти"}
                 </span>
               </div>
               {!user.hasAccess && (
                 <div className="card-actions">
                   <a href="/#pricing" className="btn btn-primary">
-                    View Pricing Plans
+                    Вижте ценовите планове
                   </a>
                 </div>
               )}
@@ -78,7 +78,7 @@ export default async function Dashboard() {
               {/* Restaurant Overview */}
               <div className="card bg-base-100 shadow-lg">
                 <div className="card-body">
-                  <h2 className="card-title">Restaurant Overview</h2>
+                  <h2 className="card-title">Преглед на ресторанта</h2>
 
                   {restaurant ? (
                     <div className="space-y-4">
@@ -88,7 +88,7 @@ export default async function Dashboard() {
                             {restaurant.name}
                           </h3>
                                                      <p className="text-base-content/70">
-                             Digital Menu Restaurant
+                             Ресторант с дигитално меню
                            </p>
                           <div className="flex items-center gap-2 mt-2">
                             <span
@@ -98,7 +98,7 @@ export default async function Dashboard() {
                                   : "badge-warning"
                               }`}
                             >
-                              {restaurant.isPublished ? "Published" : "Draft"}
+                              {restaurant.isPublished ? "Публикуван" : "Чернова"}
                             </span>
                             <span className="badge badge-outline">
                               {restaurant.priceRange}
@@ -110,25 +110,25 @@ export default async function Dashboard() {
                           target="_blank"
                           className="btn btn-outline btn-sm"
                         >
-                          View Public Menu
+                          Вижте публичното меню
                         </a>
                       </div>
 
                       <div className="stats shadow w-full">
                         <div className="stat">
-                          <div className="stat-title">Categories</div>
+                          <div className="stat-title">Категории</div>
                           <div className="stat-value text-2xl">
                             {stats.categories}
                           </div>
                         </div>
                         <div className="stat">
-                          <div className="stat-title">Products</div>
+                          <div className="stat-title">Продукти</div>
                           <div className="stat-value text-2xl">
                             {stats.products}
                           </div>
                         </div>
                         <div className="stat">
-                          <div className="stat-title">Last Updated</div>
+                          <div className="stat-title">Последно обновен</div>
                           <div className="stat-value text-lg">
                             {new Date(
                               restaurant.updatedAt
@@ -156,17 +156,17 @@ export default async function Dashboard() {
                         </svg>
                       </div>
                       <h3 className="text-xl font-semibold mb-2">
-                        No Restaurant Yet
+                        Все още няма ресторант
                       </h3>
                       <p className="text-base-content/70 mb-4">
-                        Create your restaurant to start building your digital
-                        menu.
+                        Създайте своя ресторант, за да започнете изграждането на вашето
+                        дигитално меню.
                       </p>
                       <a
                         href="/dashboard/restaurant"
                         className="btn btn-primary"
                       >
-                        Create Restaurant
+                        Създайте ресторант
                       </a>
                     </div>
                   )}
@@ -193,16 +193,16 @@ export default async function Dashboard() {
                         />
                       </svg>
                     </div>
-                    <h3 className="card-title text-lg">Restaurant Settings</h3>
+                    <h3 className="card-title text-lg">Настройки на ресторанта</h3>
                     <p className="text-sm text-base-content/70">
-                      Manage your restaurant information and settings
+                      Управлявайте информацията и настройките на вашия ресторант
                     </p>
                     <div className="card-actions">
                       <a
                         href="/dashboard/restaurant"
                         className="btn btn-primary btn-sm"
                       >
-                        Manage
+                        Управление
                       </a>
                     </div>
                   </div>
@@ -226,16 +226,16 @@ export default async function Dashboard() {
                         />
                       </svg>
                     </div>
-                    <h3 className="card-title text-lg">Menu Management</h3>
+                    <h3 className="card-title text-lg">Управление на менюто</h3>
                     <p className="text-sm text-base-content/70">
-                      Add and organize your menu categories and items
+                      Добавете и организирайте категориите и елементите на вашето меню
                     </p>
                     <div className="card-actions">
                       <a
                         href="/dashboard/menu"
                         className="btn btn-secondary btn-sm"
                       >
-                        Manage Menu
+                        Управление на менюто
                       </a>
                     </div>
                   </div>
@@ -259,16 +259,16 @@ export default async function Dashboard() {
                         />
                       </svg>
                     </div>
-                    <h3 className="card-title text-lg">Translations</h3>
+                    <h3 className="card-title text-lg">Преводи</h3>
                     <p className="text-sm text-base-content/70">
-                      Manage multi-language menu translations
+                      Управлявайте многоезичните преводи на менюто
                     </p>
                     <div className="card-actions">
                       <a
                         href="/dashboard/translations"
                         className="btn btn-accent btn-sm"
                       >
-                        Manage Languages
+                        Управление на езиците
                       </a>
                     </div>
                   </div>
@@ -280,16 +280,16 @@ export default async function Dashboard() {
           {/* Account Information */}
           <div className="card bg-base-100 shadow-lg">
             <div className="card-body">
-              <h2 className="card-title">Account Information</h2>
+              <h2 className="card-title">Информация за акаунта</h2>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-base-content/70">Email:</span>
+                  <span className="text-base-content/70">Имейл:</span>
                   <span>{user.email}</span>
                 </div>
                 {user.priceId && (
                   <div className="flex justify-between">
-                    <span className="text-base-content/70">Plan:</span>
-                    <span className="badge badge-primary">Premium</span>
+                    <span className="text-base-content/70">План:</span>
+                    <span className="badge badge-primary">Премиум</span>
                   </div>
                 )}
               </div>

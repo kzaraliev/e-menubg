@@ -4,18 +4,18 @@ import config from "@/config";
 
 export default function RestaurantPreview({ restaurant }) {
   const formatOperatingHours = (hours) => {
-    if (hours.closed || !hours.open || !hours.close) return "Closed";
+    if (hours.closed || !hours.open || !hours.close) return "Затворено";
     return `${hours.open} - ${hours.close}`;
   };
 
   const dayNames = {
-    monday: "Monday",
-    tuesday: "Tuesday", 
-    wednesday: "Wednesday",
-    thursday: "Thursday",
-    friday: "Friday",
-    saturday: "Saturday",
-    sunday: "Sunday"
+    monday: "Понеделник",
+    tuesday: "Вторник", 
+    wednesday: "Сряда",
+    thursday: "Четвъртък",
+    friday: "Петък",
+    saturday: "Събота",
+    sunday: "Неделя"
   };
 
   return (
@@ -24,7 +24,7 @@ export default function RestaurantPreview({ restaurant }) {
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-6 h-6">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
-        <span>This is how your restaurant information will appear to customers. Your menu will be available at: <strong>{config.domainName}/{restaurant.slug}</strong></span>
+        <span>Така ще изглежда информацията за вашия ресторант за клиентите. Вашето меню ще бъде достъпно на: <strong>{config.domainName}/{restaurant.slug}</strong></span>
       </div>
 
       {/* Restaurant Header */}
@@ -61,7 +61,7 @@ export default function RestaurantPreview({ restaurant }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="card bg-base-100 shadow-lg">
           <div className="card-body">
-            <h2 className="card-title">Contact Information</h2>
+            <h2 className="card-title">Контактна информация</h2>
             
             <div className="space-y-3">
               {restaurant.address && (
@@ -113,7 +113,7 @@ export default function RestaurantPreview({ restaurant }) {
 
         <div className="card bg-base-100 shadow-lg">
           <div className="card-body">
-            <h2 className="card-title">Operating Hours</h2>
+            <h2 className="card-title">Работно време</h2>
             
             <div className="space-y-2">
               {Object.entries(restaurant.operatingHours || {}).map(([day, hours]) => (

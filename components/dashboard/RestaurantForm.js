@@ -189,21 +189,21 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
     const newErrors = {};
     
     if (!formData.name.trim()) {
-      newErrors.name = "Restaurant name is required";
+      newErrors.name = "Името на ресторанта е задължително";
     }
     
     if (!formData.slug.trim()) {
-      newErrors.slug = "URL slug is required";
+      newErrors.slug = "URL slug е задължително";
     } else if (!/^[a-z0-9-]+$/.test(formData.slug)) {
-      newErrors.slug = "Slug can only contain lowercase letters, numbers, and hyphens";
+      newErrors.slug = "Slug може да съдържа само малки букви, цифри и тирета";
     }
     
     if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
+      newErrors.email = "Моля, въведете валиден имейл адрес";
     }
     
     if (formData.website && !formData.website.startsWith("http")) {
-      newErrors.website = "Website URL must start with http:// or https://";
+      newErrors.website = "URL на уебсайта трябва да започва с http:// или https://";
     }
 
     setErrors(newErrors);
@@ -242,25 +242,25 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
 
   const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
   const dayNames = {
-    monday: "Monday",
-    tuesday: "Tuesday", 
-    wednesday: "Wednesday",
-    thursday: "Thursday",
-    friday: "Friday",
-    saturday: "Saturday",
-    sunday: "Sunday"
+    monday: "Понеделник",
+    tuesday: "Вторник", 
+    wednesday: "Сряда",
+    thursday: "Четвъртък",
+    friday: "Петък",
+    saturday: "Събота",
+    sunday: "Неделя"
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="card bg-base-100 shadow-lg">
         <div className="card-body">
-          <h2 className="card-title">Basic Information</h2>
+          <h2 className="card-title">Основна информация</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Restaurant Name *</span>
+                <span className="label-text">Име на ресторанта *</span>
               </label>
               <input
                 type="text"
@@ -268,7 +268,7 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
                 value={formData.name}
                 onChange={handleInputChange}
                 className={`input input-bordered ${errors.name ? "input-error" : ""}`}
-                placeholder="My Restaurant"
+                placeholder="Моят ресторант"
                 required
               />
               {errors.name && <span className="text-error text-sm">{errors.name}</span>}
@@ -278,7 +278,7 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
               <label className="label">
                 <span className="label-text">URL Slug *</span>
                 {!isSlugManuallyEdited && (
-                  <span className="label-text-alt text-success">🔄 Auto-generated</span>
+                  <span className="label-text-alt text-success">🔄 Автоматично генериран</span>
                 )}
               </label>
               <div className="join w-full">
@@ -288,14 +288,14 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
                   value={formData.slug}
                   onChange={handleInputChange}
                   className={`input input-bordered join-item flex-1 ${errors.slug ? "input-error" : ""}`}
-                  placeholder="my-restaurant"
+                  placeholder="моят-ресторант"
                   required
                 />
                 <button
                   type="button"
                   onClick={regenerateSlug}
                   className="btn btn-outline join-item"
-                  title="Regenerate slug from restaurant name"
+                  title="Прегенерирай slug от името на ресторанта"
                   disabled={!formData.name.trim()}
                 >
                   🔄
@@ -303,16 +303,16 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
               </div>
               {errors.slug && <span className="text-error text-sm">{errors.slug}</span>}
               <div className="text-xs opacity-70 mt-1">
-                <div>Your menu will be available at: <span className="font-mono">{config.domainName}/{formData.slug}</span></div>
+                <div>Вашето меню ще бъде достъпно на: <span className="font-mono">{config.domainName}/{formData.slug}</span></div>
                 {!isSlugManuallyEdited && (
-                  <div className="text-success">✨ Automatically generated from restaurant name with transliteration</div>
+                  <div className="text-success">✨ Автоматично генерирано от името на ресторанта с транслитерация</div>
                 )}
               </div>
             </div>
 
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Price Range</span>
+                <span className="label-text">Ценова категория</span>
               </label>
               <select
                 name="priceRange"
@@ -322,7 +322,7 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
               >
                 {config.menu.priceRanges.map((range) => (
                   <option key={range} value={range}>
-                    {range} - {range === '$' ? 'Budget' : range === '$$' ? 'Moderate' : range === '$$$' ? 'Expensive' : 'Very Expensive'}
+                    {range} - {range === '$' ? 'Бюджетно' : range === '$$' ? 'Умерено' : range === '$$$' ? 'Скъпо' : 'Много скъпо'}
                   </option>
                 ))}
               </select>
@@ -331,14 +331,14 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Description</span>
+              <span className="label-text">Описание</span>
             </label>
             <textarea
               name="description"
               value={formData.description}
               onChange={handleInputChange}
               className="textarea textarea-bordered h-24"
-              placeholder="Tell customers about your restaurant..."
+              placeholder="Разкажете на клиентите за вашия ресторант..."
             />
           </div>
         </div>
@@ -346,26 +346,26 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
 
       <div className="card bg-base-100 shadow-lg">
         <div className="card-body">
-          <h2 className="card-title">Contact Information</h2>
+          <h2 className="card-title">Контактна информация</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Address</span>
+                <span className="label-text">Адрес</span>
               </label>
               <textarea
                 name="address"
                 value={formData.address}
                 onChange={handleInputChange}
                 className="textarea textarea-bordered h-20"
-                placeholder="Street address, city, postal code"
+                placeholder="Адрес, град, пощенски код"
               />
             </div>
 
             <div className="space-y-4">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text">Имейл</span>
                 </label>
                 <input
                   type="email"
@@ -373,14 +373,14 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
                   value={formData.email}
                   onChange={handleInputChange}
                   className={`input input-bordered ${errors.email ? "input-error" : ""}`}
-                  placeholder="restaurant@example.com"
+                  placeholder="ресторант@example.com"
                 />
                 {errors.email && <span className="text-error text-sm">{errors.email}</span>}
               </div>
 
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Phone</span>
+                  <span className="label-text">Телефон</span>
                 </label>
                 <input
                   type="tel"
@@ -394,7 +394,7 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
 
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Website</span>
+                  <span className="label-text">Уебсайт</span>
                 </label>
                 <input
                   type="url"
@@ -402,7 +402,7 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
                   value={formData.website}
                   onChange={handleInputChange}
                   className={`input input-bordered ${errors.website ? "input-error" : ""}`}
-                  placeholder="https://www.myrestaurant.com"
+                  placeholder="https://www.моятресторант.com"
                 />
                 {errors.website && <span className="text-error text-sm">{errors.website}</span>}
               </div>
@@ -413,7 +413,7 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
 
       <div className="card bg-base-100 shadow-lg">
         <div className="card-body">
-          <h2 className="card-title">Operating Hours</h2>
+          <h2 className="card-title">Работно време</h2>
           
           <div className="space-y-3">
             {days.map(day => (
@@ -428,7 +428,7 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
                       onChange={(e) => handleOperatingHoursChange(day, "closed", e.target.checked)}
                       className="checkbox checkbox-sm"
                     />
-                    <span className="label-text ml-2">Closed</span>
+                    <span className="label-text ml-2">Затворено</span>
                   </label>
                 </div>
                 
@@ -440,7 +440,7 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
                       onChange={(e) => handleOperatingHoursChange(day, "open", e.target.value)}
                       className="input input-bordered input-sm"
                     />
-                    <span>to</span>
+                    <span>до</span>
                     <input
                       type="time"
                       value={formData.operatingHours[day].close}
@@ -457,12 +457,12 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
 
       <div className="card bg-base-100 shadow-lg">
         <div className="card-body">
-          <h2 className="card-title">Menu Settings</h2>
+          <h2 className="card-title">Настройки на менюто</h2>
           
           <div className="space-y-4">
             <div className="form-control">
               <label className="label cursor-pointer">
-                <span className="label-text">Show prices in BGN</span>
+                <span className="label-text">Показвай цени в лева</span>
                 <input
                   type="checkbox"
                   name="settings.showPricesInBGN"
@@ -475,7 +475,7 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
             
             <div className="form-control">
               <label className="label cursor-pointer">
-                <span className="label-text">Show prices in EUR</span>
+                <span className="label-text">Показвай цени в евро</span>
                 <input
                   type="checkbox"
                   name="settings.showPricesInEuro"
@@ -488,7 +488,7 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
             
             <div className="form-control">
               <label className="label cursor-pointer">
-                <span className="label-text">Allow online ordering (Coming soon)</span>
+                <span className="label-text">Разреши онлайн поръчки (Очаквайте скоро)</span>
                 <input
                   type="checkbox"
                   name="settings.allowOnlineOrdering"
@@ -510,7 +510,7 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
           disabled={isLoading}
         >
           {isLoading && <span className="loading loading-spinner loading-sm"></span>}
-          {restaurant ? "Update Restaurant" : "Create Restaurant"}
+          {restaurant ? "Обнови ресторанта" : "Създай ресторант"}
         </button>
       </div>
     </form>

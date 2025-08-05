@@ -27,7 +27,7 @@ export default function LanguageSelector({
     <div className="space-y-4">
       {/* Current Languages */}
       <div>
-        <h3 className="font-medium mb-3">Available Languages</h3>
+        <h3 className="font-medium mb-3">Достъпни езици</h3>
         <div className="flex flex-wrap gap-2">
           {availableLanguages.map(langCode => {
             const langInfo = supportedLanguages.find(l => l.code === langCode);
@@ -46,7 +46,7 @@ export default function LanguageSelector({
                   <span className="mr-2">{langInfo?.flag || '🏳️'}</span>
                   {langInfo?.name || langCode}
                   {isDefault && (
-                    <span className="badge badge-xs badge-warning ml-2">Default</span>
+                    <span className="badge badge-xs badge-warning ml-2">По подразбиране</span>
                   )}
                 </button>
                 
@@ -55,7 +55,7 @@ export default function LanguageSelector({
                     onClick={() => onRemoveLanguage(langCode)}
                     className="btn btn-ghost btn-xs text-error hover:bg-error hover:text-error-content"
                     disabled={isLoading}
-                    title="Remove language"
+                    title="Премахване на език"
                   >
                     ×
                   </button>
@@ -69,7 +69,7 @@ export default function LanguageSelector({
       {/* Add Language */}
       {unaddedLanguages.length > 0 && (
         <div>
-          <h3 className="font-medium mb-3">Add New Language</h3>
+          <h3 className="font-medium mb-3">Добавяне на език</h3>
           
           {showAddLanguage ? (
             <div className="flex flex-wrap gap-2">
@@ -89,7 +89,7 @@ export default function LanguageSelector({
                 className="btn btn-ghost btn-sm"
                 disabled={isLoading}
               >
-                Cancel
+                Отказ
               </button>
             </div>
           ) : (
@@ -101,7 +101,7 @@ export default function LanguageSelector({
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
-              Add Language
+              Добавяне на език
             </button>
           )}
         </div>
@@ -110,8 +110,8 @@ export default function LanguageSelector({
       {/* Language Notes */}
       <div className="text-sm text-base-content/70">
         <p>
-          <strong>Note:</strong> Bulgarian (🇧🇬) is the default language and cannot be removed. 
-          Customers will see Bulgarian text when translations are not available.
+          <strong>Забележка:</strong> Български (🇧🇬) е език по подразбиране и не може да бъде премахнат. 
+          Клиентите ще видят български текст, когато преводите не са налични.
         </p>
       </div>
     </div>
