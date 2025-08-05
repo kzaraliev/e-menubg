@@ -6,6 +6,7 @@ import Restaurant from "@/models/Restaurant";
 import Category from "@/models/Category";
 import MenuProduct from "@/models/MenuProduct";
 import MenuManager from "@/components/dashboard/MenuManager";
+import Link from "next/link";
 
 export default async function MenuPage() {
   await connectMongo();
@@ -50,9 +51,9 @@ export default async function MenuPage() {
               </svg>
               <span>Нуждаете се първо да създадете ресторант, преди да управлявате менюто си.</span>
             </div>
-            <a href="/dashboard/restaurant" className="btn btn-primary mt-4">
+            <Link href="/dashboard/restaurant" className="btn btn-primary mt-4">
               Създайте ресторант
-            </a>
+            </Link>
           </div>
         </section>
       </main>
@@ -96,13 +97,13 @@ export default async function MenuPage() {
             <div className="badge badge-lg">
               {restaurant.isPublished ? "Публикуван" : "Чернова"}
             </div>
-            <a 
+            <Link 
               href={`/${restaurant.slug}`} 
               target="_blank"
               className="btn btn-outline btn-sm"
             >
               Вижте публичното меню
-            </a>
+            </Link>
           </div>
         </div>
         
