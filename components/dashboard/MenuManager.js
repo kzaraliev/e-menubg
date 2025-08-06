@@ -310,6 +310,21 @@ export default function MenuManager({ restaurant, initialCategories, initialProd
     selectedCategory ? product.categoryId === selectedCategory._id : false
   );
 
+  // Reordering functions
+  const handleReorderCategories = (reorderedCategories) => {
+    setCategories(reorderedCategories);
+  };
+
+  const handleReorderProducts = (reorderedProducts) => {
+    setProducts(prevProducts => {
+      // Replace products for the current category with reordered ones
+      const otherProducts = prevProducts.filter(p => 
+        !selectedCategory || p.categoryId !== selectedCategory._id
+      );
+      return [...otherProducts, ...reorderedProducts];
+    });
+  };
+
   return (
     <div className="space-y-6">
       {/* Controls */}
@@ -363,6 +378,7 @@ export default function MenuManager({ restaurant, initialCategories, initialProd
               setShowCategoryForm(true);
             }}
             onDeleteCategory={handleDeleteCategory}
+            onReorderCategories={handleReorderCategories}
             isLoading={isLoading}
           />
         </div>
@@ -378,6 +394,7 @@ export default function MenuManager({ restaurant, initialCategories, initialProd
                 setShowProductForm(true);
               }}
               onDeleteProduct={handleDeleteProduct}
+              onReorderProducts={handleReorderProducts}
               restaurantSettings={restaurant.settings}
               isLoading={isLoading}
             />

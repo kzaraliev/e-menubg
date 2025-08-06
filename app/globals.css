@@ -20,3 +20,14 @@ progress::-webkit-progress-value {
     @apply !capitalize;
   }
 }
+
+/* Drag and Drop Styles */
+.sortable-ghost {
+  opacity: 0.4;
+}
+
+.sortable-drag {
+  opacity: 0.9;
+  transform: rotate(2deg);
+  z-index: 1000;
+}
