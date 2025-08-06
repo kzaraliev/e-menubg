@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
+import ImageUpload from "@/components/ImageUpload";
 
 export default function CategoryForm({ category, onSave, onCancel, isLoading }) {
   const [formData, setFormData] = useState({
@@ -162,41 +164,16 @@ export default function CategoryForm({ category, onSave, onCancel, isLoading }) 
                 </label>
               </div>
 
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-medium">URL на изображение</span>
-                </label>
-                <input
-                  type="url"
-                  name="imageUrl"
-                  value={formData.imageUrl}
-                  onChange={handleInputChange}
-                  className="input input-bordered"
-                  placeholder="https://example.com/category-image.jpg"
-                />
-                <label className="label">
-                  <span className="label-text-alt">Незадължително изображение за заглавието на категорията</span>
-                </label>
-              </div>
-
-              {/* Image Preview */}
-              {formData.imageUrl && (
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text font-medium">Предварителен преглед</span>
-                  </label>
-                  <div className="w-32 h-24 bg-base-200 rounded-lg overflow-hidden">
-                    <img 
-                      src={formData.imageUrl} 
-                      alt="Предварителен преглед на категорията"
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                      }}
-                    />
-                  </div>
-                </div>
-              )}
+              <ImageUpload
+                currentImageUrl={formData.imageUrl}
+                onImageChange={(imageUrl) => {
+                  setFormData(prev => ({ ...prev, imageUrl }));
+                }}
+                uploadType="category"
+                disabled={isLoading}
+                placeholder="Качете изображение на категорията"
+                className="mt-4"
+              />
             </div>
 
             {/* Settings */}

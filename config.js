@@ -77,6 +77,17 @@ const config = {
     bucketUrl: `https://bucket-name.s3.amazonaws.com/`,
     cdn: "https://cdn-id.cloudfront.net/",
   },
+  upload: {
+    // Image upload configuration
+    maxFileSize: 10 * 1024 * 1024, // 10MB in bytes
+    allowedTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
+    imageSizes: {
+      restaurantLogo: { width: 400, height: 400, quality: 90 },
+      restaurantCover: { width: 1200, height: 600, quality: 90 },
+      category: { width: 800, height: 600, quality: 85 },
+      product: { width: 800, height: 600, quality: 85 }
+    }
+  },
   resend: {
     // REQUIRED — Email 'From' field to be used when sending magic login links
     fromNoReply: `E-menu <noreply@resend.e-menu.bg>`,

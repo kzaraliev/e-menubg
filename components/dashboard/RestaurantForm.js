@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
+import ImageUpload from "@/components/ImageUpload";
 import config from "@/config";
 
 export default function RestaurantForm({ restaurant, onSave, isLoading }) {
@@ -340,6 +342,42 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
               className="textarea textarea-bordered h-24"
               placeholder="Разкажете на клиентите за вашия ресторант..."
             />
+          </div>
+        </div>
+      </div>
+
+      {/* Images Section */}
+      <div className="card bg-base-100 shadow-lg">
+        <div className="card-body">
+          <h2 className="card-title">Изображения</h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <ImageUpload
+              currentImageUrl={formData.logoUrl}
+              onImageChange={(imageUrl) => {
+                setFormData(prev => ({ ...prev, logoUrl: imageUrl }));
+              }}
+              uploadType="restaurant-logo"
+              disabled={isLoading}
+              placeholder="Качете лого на ресторанта"
+              className="w-full"
+            />
+            
+            <ImageUpload
+              currentImageUrl={formData.coverImageUrl}
+              onImageChange={(imageUrl) => {
+                setFormData(prev => ({ ...prev, coverImageUrl: imageUrl }));
+              }}
+              uploadType="restaurant-cover"
+              disabled={isLoading}
+              placeholder="Качете заглавно изображение"
+              className="w-full"
+            />
+          </div>
+          
+          <div className="text-sm text-base-content/60 mt-4">
+            <p><strong>Лого:</strong> Препоръчителен размер 400x400px, ще се използва в менюто и профила</p>
+            <p><strong>Заглавно изображение:</strong> Препоръчителен размер 1200x600px, ще се показва в горната част на менюто</p>
           </div>
         </div>
       </div>

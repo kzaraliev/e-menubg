@@ -57,7 +57,7 @@ export async function POST(req) {
     console.log("API received POST body:", body); // Debug logging
     console.log("Operating hours in POST:", body.operatingHours); // Debug logging
     
-    const { name, slug, address, email, phone, website, description, priceRange, operatingHours, settings } = body;
+    const { name, slug, address, email, phone, website, description, priceRange, logoUrl, coverImageUrl, operatingHours, settings } = body;
 
     // Validate required fields
     if (!name || !slug) {
@@ -100,6 +100,8 @@ export async function POST(req) {
       website,
       description,
       priceRange,
+      logoUrl,
+      coverImageUrl,
       operatingHours: completeOperatingHours,
       settings,
       ownerId: session.user.id,
@@ -153,7 +155,7 @@ export async function PUT(req) {
     console.log("API received body:", body); // Debug logging
     console.log("Operating hours received:", body.operatingHours); // Debug logging
     
-    const { name, slug, address, email, phone, website, description, priceRange, operatingHours, settings } = body;
+    const { name, slug, address, email, phone, website, description, priceRange, logoUrl, coverImageUrl, operatingHours, settings } = body;
 
     // If slug is being changed, check uniqueness
     if (slug && slug !== restaurant.slug) {
@@ -172,6 +174,8 @@ export async function PUT(req) {
     if (website !== undefined) restaurant.website = website;
     if (description !== undefined) restaurant.description = description;
     if (priceRange) restaurant.priceRange = priceRange;
+    if (logoUrl !== undefined) restaurant.logoUrl = logoUrl;
+    if (coverImageUrl !== undefined) restaurant.coverImageUrl = coverImageUrl;
     
     // Handle operating hours with complete data
     if (operatingHours) {

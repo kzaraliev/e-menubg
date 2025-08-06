@@ -63,15 +63,30 @@ function SortableCategory({ category, selectedCategory, onSelectCategory, onEdit
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
             </svg>
           </div>
-          {category.iconName && (
-            <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-              <span className="text-primary text-sm">
-                {getIconForName(category.iconName)}
-              </span>
-            </div>
-          )}
-          <div>
-            <h3 className="font-medium">{category.name}</h3>
+          
+          {/* Category Image or Icon */}
+          <div className="w-12 h-12 rounded-lg bg-base-200 flex items-center justify-center flex-shrink-0 overflow-hidden">
+            {category.imageUrl ? (
+              <img 
+                src={category.imageUrl} 
+                alt={category.name}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            ) : category.iconName ? (
+              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                <span className="text-primary text-sm">
+                  {getIconForName(category.iconName)}
+                </span>
+              </div>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-base-content/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+            )}
+          </div>
+          
+          <div className="flex-1 min-w-0">
+            <h3 className="font-medium truncate">{category.name}</h3>
             {category.description && (
               <p className="text-sm text-base-content/70 truncate">
                 {category.description}
@@ -241,12 +256,28 @@ export default function CategoryList({
               {activeId ? (
                 <div className="p-3 rounded-lg border border-primary bg-primary/10 shadow-lg rotate-2 opacity-95">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                      <span className="text-primary text-sm">
-                        {categories.find(cat => cat._id === activeId)?.iconName && 
-                         getIconForName(categories.find(cat => cat._id === activeId)?.iconName)}
-                      </span>
-                    </div>
+                    {(() => {
+                      const category = categories.find(cat => cat._id === activeId);
+                      return (
+                        <div className="w-10 h-10 rounded-lg bg-base-200 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                          {category?.imageUrl ? (
+                            <img 
+                              src={category.imageUrl} 
+                              alt={category.name}
+                              className="w-full h-full object-cover rounded-lg"
+                            />
+                          ) : category?.iconName ? (
+                            <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
+                              <span className="text-primary text-xs">
+                                {getIconForName(category.iconName)}
+                              </span>
+                            </div>
+                          ) : (
+                            <span className="text-primary text-xs">📋</span>
+                          )}
+                        </div>
+                      );
+                    })()}
                     <div>
                       <h3 className="font-medium">
                         {categories.find(cat => cat._id === activeId)?.name}

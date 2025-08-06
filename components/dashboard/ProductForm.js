@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
+import ImageUpload from "@/components/ImageUpload";
 import config from "@/config";
 
 export default function ProductForm({ product, category, onSave, onCancel, restaurantSettings, isLoading }) {
@@ -239,38 +241,15 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
                   )}
                 </div>
 
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text font-medium">URL на изображение</span>
-                  </label>
-                  <input
-                    type="url"
-                    name="imageUrl"
-                    value={formData.imageUrl}
-                    onChange={handleInputChange}
-                    className="input input-bordered"
-                    placeholder="https://example.com/product-image.jpg"
-                  />
-                </div>
-
-                {/* Image Preview */}
-                {formData.imageUrl && (
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text font-medium">Предварителен преглед</span>
-                    </label>
-                    <div className="w-48 h-36 bg-base-200 rounded-lg overflow-hidden">
-                      <img 
-                        src={formData.imageUrl} 
-                        alt="Предварителен преглед на продукта"
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                        }}
-                      />
-                    </div>
-                  </div>
-                )}
+                <ImageUpload
+                  currentImageUrl={formData.imageUrl}
+                  onImageChange={(imageUrl) => {
+                    setFormData(prev => ({ ...prev, imageUrl }));
+                  }}
+                  uploadType="product"
+                  disabled={isLoading}
+                  placeholder="Качете изображение на продукта"
+                />
               </div>
             </div>
 
