@@ -5,6 +5,7 @@ import connectMongo from "@/libs/mongoose";
 import Category from "@/models/Category";
 import MenuProduct from "@/models/MenuProduct";
 import Restaurant from "@/models/Restaurant";
+import Translation from "@/models/Translation";
 
 // GET /api/categories/[categoryId] - Get category details
 export async function GET(req, { params }) {
@@ -105,13 +106,38 @@ export async function DELETE(req, { params }) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
 
+    // Get all products in this category to delete their translations
+    const productsInCategory = await MenuProduct.find({ categoryId });
+    const productIds = productsInCategory.map(product => product._id);
+
+    // Delete translations for this category
+    const deletedCategoryTranslations = await Translation.deleteMany({ 
+      entityType: 'category',
+      entityId: categoryId 
+    });
+
+    // Delete translations for all products in this category
+    const deletedProductTranslations = await Translation.deleteMany({ 
+      entityType: 'menuProduct',
+      entityId: { $in: productIds }
+    });
+
     // Delete all products in this category
-    await MenuProduct.deleteMany({ categoryId });
+    const deletedProducts = await MenuProduct.deleteMany({ categoryId });
 
     // Delete the category
     await Category.findByIdAndDelete(categoryId);
 
-    return NextResponse.json({ message: "Category and all products deleted successfully" });
+    console.log(`Category deletion cascade - Category: ${categoryId}, Products: ${deletedProducts.deletedCount}, Category translations: ${deletedCategoryTranslations.deletedCount}, Product translations: ${deletedProductTranslations.deletedCount}`);
+
+    return NextResponse.json({ 
+      message: "Category and all associated data deleted successfully",
+      deletedData: {
+        products: deletedProducts.deletedCount,
+        categoryTranslations: deletedCategoryTranslations.deletedCount,
+        productTranslations: deletedProductTranslations.deletedCount
+      }
+    });
   } catch (error) {
     console.error("Error deleting category:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

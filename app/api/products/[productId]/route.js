@@ -4,6 +4,7 @@ import { authOptions } from "@/libs/next-auth";
 import connectMongo from "@/libs/mongoose";
 import MenuProduct from "@/models/MenuProduct";
 import Restaurant from "@/models/Restaurant";
+import Translation from "@/models/Translation";
 
 // GET /api/products/[productId] - Get product details
 export async function GET(req, { params }) {
@@ -127,8 +128,23 @@ export async function DELETE(req, { params }) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
 
+    // Delete all translations for this product
+    const deletedTranslations = await Translation.deleteMany({ 
+      entityType: 'menuProduct',
+      entityId: productId 
+    });
+
+    // Delete the product
     await MenuProduct.findByIdAndDelete(productId);
-    return NextResponse.json({ message: "Product deleted successfully" });
+
+    console.log(`Product deletion cascade - Product: ${productId}, Translations: ${deletedTranslations.deletedCount}`);
+
+    return NextResponse.json({ 
+      message: "Product and all translations deleted successfully",
+      deletedData: {
+        translations: deletedTranslations.deletedCount
+      }
+    });
   } catch (error) {
     console.error("Error deleting product:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

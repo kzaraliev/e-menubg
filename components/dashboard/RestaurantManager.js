@@ -57,7 +57,7 @@ export default function RestaurantManager({ initialRestaurant, userId }) {
   const handleDelete = async () => {
     if (!restaurant) return;
     
-    if (!confirm("Are you sure you want to delete your restaurant? This action cannot be undone and will delete all categories and menu items.")) {
+    if (!confirm("Сигурни ли сте, че искате да изтриете ресторанта си? Това действие не може да бъде отменено и ще изтрие всички категории, продукти и преводи.")) {
       return;
     }
 
@@ -69,11 +69,22 @@ export default function RestaurantManager({ initialRestaurant, userId }) {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Failed to delete restaurant");
+        throw new Error(error.error || "Неуспешно изтриване на ресторанта");
       }
 
+      const result = await response.json();
       setRestaurant(null);
-      toast.success("Restaurant deleted successfully!");
+      
+      // Show detailed success message with cleanup stats
+      const { deletedData } = result;
+      if (deletedData) {
+        toast.success(
+          `Ресторантът е изтрит успешно! Изчистени данни: ${deletedData.categories} категории, ${deletedData.products} продукта, ${deletedData.translations} превода.`,
+          { duration: 5000 }
+        );
+      } else {
+        toast.success("Ресторантът е изтрит успешно!");
+      }
     } catch (error) {
       console.error("Error deleting restaurant:", error);
       toast.error(error.message);
@@ -121,9 +132,9 @@ export default function RestaurantManager({ initialRestaurant, userId }) {
           {restaurant && (
             <div className="card bg-base-200">
               <div className="card-body">
-                <h3 className="card-title text-error">Danger Zone</h3>
+                <h3 className="card-title text-error">Опасна зона</h3>
                 <p className="text-sm opacity-70">
-                  Deleting your restaurant will permanently remove all data including categories, menu items, and translations.
+                  Изтриването на ресторанта ще премахне завинаги всички данни, включително категории, продукти и преводи.
                 </p>
                 <div className="card-actions">
                   <button 
@@ -131,7 +142,7 @@ export default function RestaurantManager({ initialRestaurant, userId }) {
                     onClick={handleDelete}
                     disabled={isLoading}
                   >
-                    Delete Restaurant
+                    Изтрий ресторанта
                   </button>
                 </div>
               </div>

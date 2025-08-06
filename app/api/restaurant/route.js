@@ -4,6 +4,9 @@ import { authOptions } from "@/libs/next-auth";
 import connectMongo from "@/libs/mongoose";
 import Restaurant from "@/models/Restaurant";
 import User from "@/models/User";
+import Category from "@/models/Category";
+import MenuProduct from "@/models/MenuProduct";
+import Translation from "@/models/Translation";
 
 // GET /api/restaurant - Get user's restaurant
 export async function GET(req) {
@@ -236,10 +239,30 @@ export async function DELETE(req) {
       return NextResponse.json({ error: "Restaurant not found" }, { status: 404 });
     }
 
-    // TODO: Implement cascade delete for categories and products
-    // This will be handled when we create those API routes
-
+    // Cascade delete all associated data
+    console.log(`Starting cascade deletion for restaurant ${restaurant._id}`);
+    
+    // 1. Delete all translations for this restaurant
+    const deletedTranslations = await Translation.deleteMany({ 
+      restaurantId: restaurant._id 
+    });
+    console.log(`Deleted ${deletedTranslations.deletedCount} translations`);
+    
+    // 2. Delete all products for this restaurant
+    const deletedProducts = await MenuProduct.deleteMany({ 
+      restaurantId: restaurant._id 
+    });
+    console.log(`Deleted ${deletedProducts.deletedCount} products`);
+    
+    // 3. Delete all categories for this restaurant
+    const deletedCategories = await Category.deleteMany({ 
+      restaurantId: restaurant._id 
+    });
+    console.log(`Deleted ${deletedCategories.deletedCount} categories`);
+    
+    // 4. Finally, delete the restaurant itself
     await Restaurant.findByIdAndDelete(restaurant._id);
+    console.log(`Deleted restaurant ${restaurant._id}`);
 
     // Update user's restaurant reference
     await User.findByIdAndUpdate(session.user.id, { 
@@ -247,7 +270,14 @@ export async function DELETE(req) {
       lastMenuUpdate: new Date()
     });
 
-    return NextResponse.json({ message: "Restaurant deleted successfully" });
+    return NextResponse.json({ 
+      message: "Restaurant and all associated data deleted successfully",
+      deletedData: {
+        translations: deletedTranslations.deletedCount,
+        products: deletedProducts.deletedCount,
+        categories: deletedCategories.deletedCount
+      }
+    });
   } catch (error) {
     console.error("Error deleting restaurant:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
