@@ -74,11 +74,11 @@ export default async function Article({ params }) {
       />
 
       {/* GO BACK LINK */}
-      <div>
+                <div>
         <Link
           href="/blog"
           className="link !no-underline text-base-content/80 hover:text-base-content inline-flex items-center gap-1"
-          title="Back to Blog"
+          title="Обратно към блога"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@ export default async function Article({ params }) {
               clipRule="evenodd"
             />
           </svg>
-          Back to Blog
+          Обратно към блога
         </Link>
       </div>
 
@@ -108,7 +108,7 @@ export default async function Article({ params }) {
               />
             ))}
             <span className="text-base-content/80" itemProp="datePublished">
-              {new Date(article.publishedAt).toLocaleDateString("en-US", {
+              {new Date(article.publishedAt).toLocaleDateString("bg-BG", {
                 month: "long",
                 day: "numeric",
                 year: "numeric",
@@ -129,14 +129,14 @@ export default async function Article({ params }) {
           {/* SIDEBAR WITH AUTHORS AND 3 RELATED ARTICLES */}
           <section className="max-md:pb-4 md:pl-12 max-md:border-b md:border-l md:order-last md:w-72 shrink-0 border-base-content/10">
             <p className="text-base-content/80 text-sm mb-2 md:mb-3">
-              Posted by
+              Автор
             </p>
             <Avatar article={article} />
 
             {articlesRelated.length > 0 && (
               <div className="hidden md:block mt-12">
                 <p className=" text-base-content/80 text-sm  mb-2 md:mb-3">
-                  Related reading
+                  Свързани статии
                 </p>
                 <div className="space-y-2 md:space-y-5">
                   {articlesRelated.map((article) => (

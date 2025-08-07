@@ -1,31 +1,48 @@
 import Image from "next/image";
 import { authors, articles } from "../../_assets/content";
 import CardArticle from "../../_assets/components/CardArticle";
+import Pagination from "../../_assets/components/Pagination";
 import { getSEOTags } from "@/libs/seo";
 import config from "@/config";
+
+const ARTICLES_PER_PAGE = 6;
 
 export async function generateMetadata({ params }) {
   const author = authors.find((author) => author.slug === params.authorId);
 
   return getSEOTags({
-    title: `${author.name}, Author at ${config.appName}'s Blog`,
-    description: `${author.name}, Author at ${config.appName}'s Blog`,
+    title: `${author.name} | ${config.appName} Блог`,
+    description: `Статии от ${author.name} - ${author.job}. ${author.description}`,
     canonicalUrlRelative: `/blog/author/${author.slug}`,
   });
 }
 
-export default async function Author({ params }) {
+export default async function Author({ params, searchParams }) {
   const author = authors.find((author) => author.slug === params.authorId);
-  const articlesByAuthor = articles
+  
+  // Get current page from URL search params (default to 1)
+  const currentPage = parseInt(searchParams?.page) || 1;
+  
+  // Filter and sort articles by this author
+  const allArticlesByAuthor = articles
     .filter((article) => article.author.slug === author.slug)
     .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+
+  // Calculate pagination
+  const totalArticles = allArticlesByAuthor.length;
+  const totalPages = Math.ceil(totalArticles / ARTICLES_PER_PAGE);
+  const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
+  const endIndex = startIndex + ARTICLES_PER_PAGE;
+  
+  // Get articles for current page
+  const articlesByAuthor = allArticlesByAuthor.slice(startIndex, endIndex);
 
   return (
     <>
       <section className="max-w-3xl mx-auto flex flex-col md:flex-row gap-8 mt-12 mb-24 md:mb-32">
         <div>
           <p className="text-xs uppercase tracking-wide text-base-content/80 mb-2">
-            Authors
+            Автор
           </p>
           <h1 className="font-extrabold text-3xl lg:text-5xl tracking-tight mb-2">
             {author.name}
@@ -67,14 +84,35 @@ export default async function Author({ params }) {
 
       <section>
         <h2 className="font-bold text-2xl lg:text-4xl tracking-tight text-center mb-8 md:mb-12">
-          Most recent articles by {author.name}
+          Статии от {author.name}
         </h2>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          {articlesByAuthor.map((article) => (
-            <CardArticle key={article.slug} article={article} />
-          ))}
-        </div>
+        {articlesByAuthor.length > 0 ? (
+          <>
+            <div className="grid lg:grid-cols-2 gap-8 mb-12">
+              {articlesByAuthor.map((article) => (
+                <CardArticle key={article.slug} article={article} />
+              ))}
+            </div>
+
+            {/* Pagination for author */}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              basePath={`/blog/author/${author.slug}`}
+            />
+
+            {/* Articles count info */}
+            <div className="text-center text-sm text-base-content/70">
+              Показани са {articlesByAuthor.length} от {totalArticles} статии от този автор
+              {totalPages > 1 && ` (страница ${currentPage} от ${totalPages})`}
+            </div>
+          </>
+        ) : (
+          <div className="text-center text-base-content/70">
+            Този автор все още няма публикувани статии.
+          </div>
+        )}
       </section>
     </>
   );

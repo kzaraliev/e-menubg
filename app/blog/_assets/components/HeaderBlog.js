@@ -13,12 +13,12 @@ import ButtonSignin from "@/components/ButtonSignin";
 const links = [
   {
     href: "/blog/",
-    label: "All Posts",
+    label: "Всички статии",
   },
 ];
 
 const cta = (
-  <ButtonSignin text="Prevent disputes" extraStyle="btn-primary md:btn-sm" />
+  <ButtonSignin text="Започнете безплатно" extraStyle="btn-primary md:btn-sm" />
 );
 
 const ButtonPopoverCategories = () => {
@@ -28,9 +28,9 @@ const ButtonPopoverCategories = () => {
         <>
           <Popover.Button
             className="link no-underline flex flex-nowrap items-center gap-1 text-base-content/80 hover:text-base-content active:text-base-content focus:text-base-content duration-100"
-            title="Open Blog categories"
+            title="Отвори категории"
           >
-            Categories
+            Категории
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
