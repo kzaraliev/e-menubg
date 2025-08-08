@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendOpenAi } from "@/libs/gpt";
+import { getUIText } from "@/libs/uiTranslations";
 
 // Simple in-memory cache for cost optimization
 const responseCache = new Map();
@@ -21,6 +22,18 @@ export async function POST(req) {
     // Create cache key for cost optimization
     const cacheKey = `${restaurant._id}-${message.toLowerCase().trim()}-${currentLanguage}`;
     
+    // Pre-filter obvious non-food questions to save API costs
+    const isOffTopic = checkIfOffTopic(message, currentLanguage);
+    if (isOffTopic) {
+      console.log("🚫 Off-topic question blocked - saved API cost!");
+      const offTopicResponse = getUIText('aiOffTopic', currentLanguage);
+      
+      return NextResponse.json({
+        response: offTopicResponse,
+        recommendations: []
+      });
+    }
+
     // Check cache first to save money
     const cached = responseCache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
@@ -124,49 +137,67 @@ function createSystemPrompt(restaurant, menuData, language) {
   const restaurantName = restaurant.name;
   
   if (language === 'en') {
-    return `You are an AI assistant for ${restaurantName}. Give accurate, concise recommendations.
+    return `You are an AI assistant for ${restaurantName}. ONLY ANSWER QUESTIONS ABOUT MENU AND FOOD.
 
 MENU: ${JSON.stringify(menuData, null, 2)}
 
-IMPORTANT - ANALYZE MENU CAREFULLY:
+IMPORTANT - RESTRICTIONS:
+- ONLY ANSWER questions about: food, dishes, menu, recommendations, allergens, prices, diet
+- DO NOT ANSWER: geography, politics, math, general knowledge, personal advice
+- If question is NOT about food: "Sorry, I only help with menu and food questions."
+
+MENU ANALYSIS:
 - "hot": true = SPICY dish
 - "veg": true = vegetarian  
 - "vgn": true = vegan
 - "pop": true = popular
 
-RULES:
+FOOD RULES:
 1. Answer in 2-3 sentences maximum
 2. Always check dish properties accurately
 3. If spicy dishes exist (hot: true), recommend them for "spicy" requests
 4. Include product IDs at end: "RECOMMENDED_IDS: [id1, id2]"
 5. Explain why you recommend the dish
 
-EXAMPLE:
+FOOD EXAMPLE:
 "For spicy - I recommend Caesar Salad! It's marked as spicy and very popular (11.98 BGN).
-RECOMMENDED_IDS: [507f1f77bcf86cd799439011]"`;
+RECOMMENDED_IDS: [507f1f77bcf86cd799439011]"
+
+NON-FOOD EXAMPLE:
+Question: "What is the capital of Austria?"
+Answer: "Sorry, I only help with menu and food questions."`;
   }
 
   // Bulgarian system prompt - balanced for accuracy and cost
-  return `Ти си AI асистент за ${restaurantName}. Давай точни, кратки препоръки.
+  return `Ти си AI асистент за ${restaurantName}. ОТГОВАРЯШ САМО НА ВЪПРОСИ ЗА МЕНЮТО И ХРАНАТА.
 
 МЕНЮ: ${JSON.stringify(menuData, null, 2)}
 
-ВАЖНО - АНАЛИЗИРАЙ МЕНЮТО ВНИМАТЕЛНО:
+ВАЖНО - ОГРАНИЧЕНИЯ:
+- ОТГОВАРЯЙ САМО на въпроси за: храна, ястия, меню, препоръки, алергени, цени, диета
+- НЕ ОТГОВАРЯЙ на: география, политика, математика, общи знания, личен съвет
+- Ако въпросът НЕ Е за храната: "Извинявай, аз помагам само с въпроси за менюто и храната."
+
+АНАЛИЗ НА МЕНЮТО:
 - "hot": true = ЛЮТO ястие  
 - "veg": true = вегетарианско
 - "vgn": true = веган
 - "pop": true = популярно
 
-ПРАВИЛА:
+ПРАВИЛА ЗА ХРАНА:
 1. Отговаряй в 2-3 изречения максимум
 2. Винаги проверявай свойствата на ястията точно
 3. Ако има люти ястия (hot: true), препоръчай ги за "люто"
 4. Включи ID-та в края: "RECOMMENDED_IDS: [id1, id2]"
 5. Обясни защо препоръчваш ястието
 
-ПРИМЕР:
+ПРИМЕР ЗА ХРАНА:
 "За люто - препоръчвам Салата Цезар! Тя е означена като пикантна и е много популярна (11.98 лв).
-RECOMMENDED_IDS: [507f1f77bcf86cd799439011]"`;
+RECOMMENDED_IDS: [507f1f77bcf86cd799439011]"
+
+ПРИМЕР ЗА НЕ-ХРАНА:
+Въпрос: "Коя е столицата на Австрия?"
+Отговор: "Извинявай, аз помагам само с въпроси за менюто и храната."`;
 }
 
 function parseAIResponse(aiResponse) {
@@ -285,4 +316,88 @@ function getFallbackRecommendations(userMessage, menuData, language) {
     response: responseText,
     recommendations: recommendations
   };
+}
+
+// Pre-filter function to catch obvious non-food questions and save API costs
+function checkIfOffTopic(message, language) {
+  const lowerMessage = message.toLowerCase();
+  
+  // Food-related keywords (allowed topics)
+  const foodKeywords = [
+    // Bulgarian
+    'храна', 'ястие', 'ястия', 'меню', 'препорък', 'алерген', 'цена', 'лев', 'лв', 'вегетариан', 'веган', 
+    'люто', 'пикантн', 'солен', 'сладк', 'киселин', 'горчив', 'салата', 'супа', 'пица', 'паста', 
+    'месо', 'риба', 'пиле', 'свинско', 'телешко', 'млечн', 'сирене', 'масло', 'хляб', 'десерт',
+    'напитка', 'вода', 'кафе', 'чай', 'сок', 'бира', 'вино', 'коктейл', 'диета', 'калори',
+    'порция', 'размер', 'готвене', 'печен', 'пърж', 'варен', 'сурово', 'свеж', 'топъл', 'студен',
+    'завтрак', 'обяд', 'вечеря', 'закуска', 'предястие', 'основно', 'гарнитура',
+    
+    // English  
+    'food', 'dish', 'dishes', 'menu', 'recommend', 'allergen', 'price', 'cost', 'vegetarian', 'vegan',
+    'spicy', 'hot', 'mild', 'sweet', 'sour', 'bitter', 'salty', 'salad', 'soup', 'pizza', 'pasta',
+    'meat', 'fish', 'chicken', 'pork', 'beef', 'dairy', 'cheese', 'butter', 'bread', 'dessert',
+    'drink', 'water', 'coffee', 'tea', 'juice', 'beer', 'wine', 'cocktail', 'diet', 'calories',
+    'portion', 'size', 'cooking', 'baked', 'fried', 'boiled', 'raw', 'fresh', 'warm', 'cold',
+    'breakfast', 'lunch', 'dinner', 'snack', 'appetizer', 'main', 'side'
+  ];
+  
+  // Obvious non-food topics (blocked)
+  const offTopicKeywords = [
+    // Geography & Places
+    'столица', 'град', 'държава', 'континент', 'океан', 'планина', 'река', 'море',
+    'capital', 'city', 'country', 'continent', 'ocean', 'mountain', 'river', 'sea',
+    'vienna', 'austria', 'sofia', 'bulgaria', 'europe', 'america', 'asia', 'africa',
+    
+    // Politics & History
+    'политика', 'партия', 'избори', 'президент', 'министър', 'война', 'история',
+    'politics', 'party', 'election', 'president', 'minister', 'war', 'history',
+    
+    // Math & Science
+    'математика', 'химия', 'физика', 'биология', 'формула', 'уравнение',
+    'mathematics', 'chemistry', 'physics', 'biology', 'formula', 'equation',
+    
+    // Technology (non-food related)
+    'компютър', 'софтуер', 'програма', 'интернет', 'android', 'iphone',
+    'computer', 'software', 'program', 'internet', 'android', 'iphone',
+    
+    // Personal advice
+    'връзка', 'любов', 'работа', 'кариера', 'семейство',
+    'relationship', 'love', 'job', 'career', 'family',
+    
+    // Entertainment
+    'филм', 'музика', 'книга', 'игра', 'спорт', 'футбол', 'тенис',
+    'movie', 'music', 'book', 'game', 'sport', 'football', 'tennis'
+  ];
+  
+  // Check if message contains any food keywords
+  const hasFoodKeywords = foodKeywords.some(keyword => lowerMessage.includes(keyword));
+  
+  // Check if message contains obvious off-topic keywords
+  const hasOffTopicKeywords = offTopicKeywords.some(keyword => lowerMessage.includes(keyword));
+  
+  // If it has off-topic keywords and no food keywords, it's probably off-topic
+  if (hasOffTopicKeywords && !hasFoodKeywords) {
+    return true;
+  }
+  
+  // If message is very short and has no food keywords, might be off-topic
+  if (lowerMessage.length < 10 && !hasFoodKeywords) {
+    return true;
+  }
+  
+  // Questions that are clearly not about food
+  const offTopicPatterns = [
+    /коя е столицата/i, /what is the capital/i,
+    /колко е \d+ \+ \d+/i, /what is \d+ \+ \d+/i,
+    /кой е президент/i, /who is the president/i,
+    /кога е роден/i, /when was.*born/i,
+    /как да направя/i, /how to make.*money/i,
+    /какво е времето/i, /what is the weather/i
+  ];
+  
+  if (offTopicPatterns.some(pattern => pattern.test(lowerMessage))) {
+    return true;
+  }
+  
+  return false;
 }
