@@ -11,6 +11,7 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
+  const [typingMessage, setTypingMessage] = useState(null);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -18,6 +19,43 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Simple, fast typewriter effect
+  const typeMessage = (fullText, messageId, isWelcome = false) => {
+    setTypingMessage({ id: messageId, content: '', timestamp: new Date() });
+    
+    let currentIndex = 0;
+    const typingSpeed = 15; // Fast, consistent speed
+    
+    const typeInterval = setInterval(() => {
+      if (currentIndex < fullText.length) {
+        setTypingMessage(prev => ({
+          ...prev,
+          content: fullText.substring(0, currentIndex + 1)
+        }));
+        currentIndex++;
+        scrollToBottom();
+      } else {
+        // Typing complete
+        clearInterval(typeInterval);
+        
+        const finalMessage = {
+          id: messageId,
+          type: 'ai',
+          content: fullText,
+          timestamp: new Date()
+        };
+        
+        if (isWelcome) {
+          setMessages([finalMessage]);
+        } else {
+          setMessages(prev => [...prev, finalMessage]);
+        }
+        
+        setTypingMessage(null);
+      }
+    }, typingSpeed);
   };
 
   useEffect(() => {
@@ -32,16 +70,11 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
 
   // Initialize with welcome message when first opened
   useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      const welcomeMessage = {
-        id: Date.now(),
-        type: 'ai',
-        content: getUIText('aiWelcome', currentLanguage).replace('{restaurantName}', restaurant.name),
-        timestamp: new Date()
-      };
-      setMessages([welcomeMessage]);
+    if (isOpen && messages.length === 0 && !typingMessage) {
+      const welcomeText = getUIText('aiWelcome', currentLanguage).replace('{restaurantName}', restaurant.name);
+      typeMessage(welcomeText, Date.now(), true);
     }
-  }, [isOpen, messages.length, currentLanguage, restaurant.name]);
+  }, [isOpen, messages.length, currentLanguage, restaurant.name, typingMessage]);
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
@@ -73,14 +106,8 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
       if (response.ok) {
         const data = await response.json();
         
-        const aiMessage = {
-          id: Date.now() + 1,
-          type: 'ai',
-          content: data.response,
-          timestamp: new Date()
-        };
-
-        setMessages(prev => [...prev, aiMessage]);
+        // Use typing animation for AI response
+        typeMessage(data.response, Date.now() + 1);
         setRecommendations(data.recommendations || []);
       } else {
         throw new Error('Failed to get AI response');
@@ -88,14 +115,8 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
     } catch (error) {
       console.error('Error sending message:', error);
       
-      const errorMessage = {
-        id: Date.now() + 1,
-        type: 'ai',
-        content: getUIText('aiError', currentLanguage),
-        timestamp: new Date()
-      };
-
-      setMessages(prev => [...prev, errorMessage]);
+      // Use typing animation for error message too
+      typeMessage(getUIText('aiError', currentLanguage), Date.now() + 1);
     } finally {
       setIsLoading(false);
     }
@@ -111,14 +132,10 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
   const clearChat = () => {
     setMessages([]);
     setRecommendations([]);
-    // Re-add welcome message
-    const welcomeMessage = {
-      id: Date.now(),
-      type: 'ai',
-      content: getUIText('aiWelcome', currentLanguage).replace('{restaurantName}', restaurant.name),
-      timestamp: new Date()
-    };
-    setMessages([welcomeMessage]);
+    setTypingMessage(null);
+    // Re-add welcome message with typing animation
+    const welcomeText = getUIText('aiWelcome', currentLanguage).replace('{restaurantName}', restaurant.name);
+    setTimeout(() => typeMessage(welcomeText, Date.now(), true), 100);
   };
 
   const suggestedQuestions = [
@@ -157,7 +174,7 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      <div className="bg-base-100 border border-base-300 rounded-2xl shadow-2xl w-96 h-[600px] flex flex-col overflow-hidden">
+      <div className="bg-base-100 border border-base-300 rounded-2xl shadow-2xl w-96 h-[600px] flex flex-col overflow-hidden transform transition-all duration-200 ease-out">
         {/* Header */}
         <div className="bg-primary text-primary-content p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -237,7 +254,37 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
             />
           ))}
           
-          {isLoading && (
+          {/* Typing Animation */}
+          {typingMessage && (
+            <div className="flex justify-start">
+              <div className="flex gap-3 max-w-[85%]">
+                <div className="w-8 h-8 bg-base-200 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className="h-5 w-5 text-primary" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" 
+                    />
+                  </svg>
+                </div>
+                <div className="bg-base-200 rounded-2xl px-4 py-3 flex-1">
+                  <p className="text-sm whitespace-pre-wrap text-base-content">
+                    {typingMessage.content}
+                    <span className="inline-block w-0.5 h-4 bg-primary ml-0.5 animate-pulse"></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          {isLoading && !typingMessage && (
             <div className="flex justify-start">
               <div className="bg-base-200 rounded-2xl px-4 py-3 max-w-[80%]">
                 <div className="flex items-center gap-2">
@@ -293,7 +340,7 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
         )}
 
         {/* Suggested Questions (show when no messages except welcome) */}
-        {messages.length <= 1 && (
+        {messages.length <= 1 && !typingMessage && (
           <div className="border-t border-base-300 p-4">
             <p className="text-xs text-base-content/60 mb-3">
               {getUIText('aiSuggestedQuestions', currentLanguage)}
@@ -303,7 +350,8 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
                 <button
                   key={index}
                   onClick={() => setInputMessage(question)}
-                  className="text-left text-xs bg-base-200 hover:bg-base-300 rounded-lg p-2 transition-colors"
+                  className="text-left text-xs bg-base-200 hover:bg-base-300 rounded-lg p-2 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+                  disabled={isLoading}
                 >
                   {question}
                 </button>
@@ -322,13 +370,13 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder={getUIText('aiPlaceholder', currentLanguage)}
-              className="input input-bordered input-sm flex-1"
-              disabled={isLoading}
+              className="input input-bordered input-sm flex-1 transition-all duration-200"
+              disabled={isLoading || !!typingMessage}
             />
             <button
               onClick={handleSendMessage}
-              disabled={!inputMessage.trim() || isLoading}
-              className="btn btn-primary btn-sm"
+              disabled={!inputMessage.trim() || isLoading || !!typingMessage}
+              className="btn btn-primary btn-sm transition-all duration-200 hover:scale-105 active:scale-95"
             >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
