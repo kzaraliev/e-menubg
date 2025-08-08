@@ -50,7 +50,23 @@ export const uiTranslations = {
     
     // Language switcher
     availableLanguages: "Достъпно на множество езици",
-    language: "Език"
+    language: "Език",
+    
+    // AI Assistant
+    aiAssistant: "AI Асистент",
+    aiSubtitle: "Помощ с менюто",
+    aiWelcome: "Здравей! Аз съм AI асистентът на {restaurantName}. Мога да ти помогна да намериш перфектното ястие според твоите предпочитания. Какво търсиш днес?",
+    aiPlaceholder: "Напиши съобщение...",
+    aiThinking: "Мисля...",
+    aiError: "Извинявай, възникна грешка. Моля, опитай отново.",
+    clearChat: "Изчисти чата",
+    close: "Затвори",
+    recommendations: "Препоръки",
+    aiSuggestedQuestions: "Ето няколко въпроса, които можеш да ми зададеш:",
+    aiSuggestion1: "Какво вегетарианско имате?",
+    aiSuggestion2: "Препоръчай ми нещо популярно",
+    aiSuggestion3: "Какво мога да хапна под 20 лв?",
+    aiSuggestion4: "Имате ли ястия без глутен?"
   },
   
   en: {
@@ -103,7 +119,23 @@ export const uiTranslations = {
     
     // Language switcher
     availableLanguages: "Available in multiple languages",
-    language: "Language"
+    language: "Language",
+    
+    // AI Assistant
+    aiAssistant: "AI Assistant",
+    aiSubtitle: "Menu Help",
+    aiWelcome: "Hello! I'm the AI assistant for {restaurantName}. I can help you find the perfect dish according to your preferences. What are you looking for today?",
+    aiPlaceholder: "Type a message...",
+    aiThinking: "Thinking...",
+    aiError: "Sorry, an error occurred. Please try again.",
+    clearChat: "Clear chat",
+    close: "Close",
+    recommendations: "Recommendations",
+    aiSuggestedQuestions: "Here are some questions you can ask me:",
+    aiSuggestion1: "What vegetarian options do you have?",
+    aiSuggestion2: "Recommend something popular",
+    aiSuggestion3: "What can I get under $20?",
+    aiSuggestion4: "Do you have gluten-free dishes?"
   },
   
   de: {
@@ -156,7 +188,23 @@ export const uiTranslations = {
     
     // Language switcher
     availableLanguages: "In mehreren Sprachen verfügbar",
-    language: "Sprache"
+    language: "Sprache",
+    
+    // AI Assistant
+    aiAssistant: "KI-Assistent",
+    aiSubtitle: "Menü-Hilfe",
+    aiWelcome: "Hallo! Ich bin der KI-Assistent von {restaurantName}. Ich kann Ihnen helfen, das perfekte Gericht nach Ihren Vorlieben zu finden. Was suchen Sie heute?",
+    aiPlaceholder: "Nachricht eingeben...",
+    aiThinking: "Denke nach...",
+    aiError: "Entschuldigung, ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    clearChat: "Chat löschen",
+    close: "Schließen",
+    recommendations: "Empfehlungen",
+    aiSuggestedQuestions: "Hier sind einige Fragen, die Sie mir stellen können:",
+    aiSuggestion1: "Welche vegetarischen Optionen haben Sie?",
+    aiSuggestion2: "Empfehlen Sie etwas Beliebtes",
+    aiSuggestion3: "Was kann ich unter 20€ bekommen?",
+    aiSuggestion4: "Haben Sie glutenfreie Gerichte?"
   },
   
   ru: {
@@ -209,7 +257,23 @@ export const uiTranslations = {
     
     // Language switcher
     availableLanguages: "Доступно на нескольких языках",
-    language: "Язык"
+    language: "Язык",
+    
+    // AI Assistant
+    aiAssistant: "ИИ-ассистент",
+    aiSubtitle: "Помощь с меню",
+    aiWelcome: "Привет! Я ИИ-ассистент ресторана {restaurantName}. Я могу помочь вам найти идеальное блюдо согласно вашим предпочтениям. Что вы ищете сегодня?",
+    aiPlaceholder: "Введите сообщение...",
+    aiThinking: "Думаю...",
+    aiError: "Извините, произошла ошибка. Пожалуйста, попробуйте снова.",
+    clearChat: "Очистить чат",
+    close: "Закрыть",
+    recommendations: "Рекомендации",
+    aiSuggestedQuestions: "Вот несколько вопросов, которые вы можете мне задать:",
+    aiSuggestion1: "Какие у вас есть вегетарианские блюда?",
+    aiSuggestion2: "Порекомендуйте что-то популярное",
+    aiSuggestion3: "Что можно взять до 1000 рублей?",
+    aiSuggestion4: "Есть ли у вас безглютеновые блюда?"
   }
 };
 
