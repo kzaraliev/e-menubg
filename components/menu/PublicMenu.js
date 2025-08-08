@@ -6,6 +6,7 @@ import CategorySection from "./CategorySection";
 import MenuNavigation from "./MenuNavigation";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { getUIText } from "@/libs/uiTranslations";
+import AIAssistant from "./AIAssistant";
 
 import config from "@/config";
 import Link from "next/link";
@@ -209,6 +210,12 @@ export default function PublicMenu({ menuData }) {
           </div>
         )}
       </main>
+
+      {/* AI Assistant */}
+      <AIAssistant 
+        menuData={{ restaurant, categories }} 
+        currentLanguage={currentLanguage}
+      />
 
       {/* Footer */}
       <footer className="bg-base-200 border-t border-base-300 mt-16">
