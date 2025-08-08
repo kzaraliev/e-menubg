@@ -66,8 +66,8 @@ export const uiTranslations = {
     aiSuggestion1: "Какво вегетарианско имате?",
     aiSuggestion2: "Препоръчай ми нещо популярно",
     aiSuggestion3: "Какво мога да хапна под 20 лв?",
-    aiSuggestion4: "Имате ли ястия без глутен?",
-    aiOffTopic: "Извинявай, аз помагам само с въпроси за менюто и храната. Можеш да ме питаш за ястия, алергени, цени или препоръки!"
+    aiSuggestion4: "Какво топло имате за пиене?",
+    aiOffTopic: "Извинявай, аз помагам само с въпроси за менюто и храната. Можеш да ме питаш за ястия, напитки, алергени, цени или препоръки!"
   },
   
   en: {
@@ -136,8 +136,8 @@ export const uiTranslations = {
     aiSuggestion1: "What vegetarian options do you have?",
     aiSuggestion2: "Recommend something popular",
     aiSuggestion3: "What can I get under $20?",
-    aiSuggestion4: "Do you have gluten-free dishes?",
-    aiOffTopic: "Sorry, I only help with menu and food questions. You can ask me about dishes, allergens, prices or recommendations!"
+    aiSuggestion4: "What hot drinks do you have?",
+    aiOffTopic: "Sorry, I only help with menu and food questions. You can ask me about dishes, drinks, allergens, prices or recommendations!"
   },
   
   de: {
