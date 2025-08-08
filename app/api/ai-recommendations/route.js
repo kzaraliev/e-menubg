@@ -41,23 +41,29 @@ export async function POST(req) {
       return NextResponse.json(cached.data);
     }
 
-    // Prepare minimal menu data for AI analysis (cost optimization - fewer tokens)
+    // Prepare ultra-minimal menu data for AI analysis (aggressive token optimization)
     const menuForAI = categories.map(category => ({
-      cat: category.name, // Shortened field names to save tokens
-      items: category.products.map(product => ({
-        n: product.name,
-        d: product.description?.substring(0, 50) || '', // Limit description length
-        p: product.priceBGN,
-        s: product.size || '',
-        a: product.allergens || [],
-        veg: product.isVegetarian,
-        vgn: product.isVegan,
-        hot: product.isSpicy,
-        pop: product.isPopular,
-        avl: product.isAvailable,
-        min: product.preparationTime || null,
-        id: product._id
-      }))
+      c: category.name, // cat -> c
+      i: category.products
+        .filter(product => product.isAvailable) // Only send available items
+        .map(product => {
+          // Create compact array format: [name, price, size, description_snippet, flags, id]
+          const flags = 
+            (product.isVegetarian ? 'v' : '') +
+            (product.isVegan ? 'g' : '') +
+            (product.isSpicy ? 'h' : '') +
+            (product.isPopular ? 'p' : '');
+          
+          return [
+            product.name,
+            product.priceBGN,
+            product.size || '',
+            product.description?.substring(0, 50) || '', // Even shorter description
+            flags,
+            product._id,
+            product.preparationTime || 0
+          ];
+        })
     }));
 
     // Create system prompt in the appropriate language
@@ -136,73 +142,23 @@ export async function POST(req) {
 function createSystemPrompt(restaurant, menuData, language) {
   const restaurantName = restaurant.name;
   
-  if (language === 'en') {
-    return `You are an AI assistant for ${restaurantName}. ONLY ANSWER QUESTIONS ABOUT MENU AND FOOD.
+  return `Ти си асистент за меню на ресторант ${restaurantName}. Отговаряй само на въпроси за храна/напитки.
 
-MENU: ${JSON.stringify(menuData, null, 2)}
+МЕНЮ: ${JSON.stringify(menuData)}
 
-IMPORTANT - RESTRICTIONS:
-- ONLY ANSWER questions about: food, dishes, menu, recommendations, allergens, prices, diet
-- DO NOT ANSWER: geography, politics, math, general knowledge, personal advice
-- If question is NOT about food: "Sorry, I only help with menu and food questions."
+ФОРМАТ: i=[име,цена,размер,описание,ФЛАГОВЕ,id,време]
 
-MENU ANALYSIS:
-- "hot": true = SPICY dish
-- "veg": true = vegetarian  
-- "vgn": true = vegan
-- "pop": true = popular
+ФЛАГОВЕ СА НА ПОЗИЦИЯ 5 В МАСИВА! ПРОВЕРЯВАЙ ГИ ЗАДЪЛЖИТЕЛНО:
+- Ако ФЛАГЪТ съдържа буквата "h" = ЛЮТО ястие
+- Ако ФЛАГЪТ съдържа буквата "p" = ПОПУЛЯРНО ястие  
+- Ако ФЛАГЪТ съдържа буквата "v" = ВЕГЕТАРИАНСКО ястие
+- Ако ФЛАГЪТ съдържа буквата "g" = ВЕГАН ястие
 
-FOOD RULES:
-1. Answer in 2-3 sentences maximum
-2. Always check dish properties accurately
-3. If spicy dishes exist (hot: true), recommend them for "spicy" requests
-4. Include product IDs at end: "RECOMMENDED_IDS: [id1, id2]"
-5. Explain why you recommend the dish
+ПРИМЕР: ["Руска салата",9.99,"300 гр.","описание","h","id",3] - тук флагът е "h" което означава ЛЮТО!
 
-FOOD EXAMPLE:
-"For spicy - I recommend Caesar Salad! It's marked as spicy and very popular (11.98 BGN).
-RECOMMENDED_IDS: [507f1f77bcf86cd799439011]"
+КРИТИЧНО: Винаги отговаряй на СЪЩИЯ ЕЗИК, на който потребителят пита!
 
-NON-FOOD EXAMPLE:
-Question: "What is the capital of Austria?"
-Answer: "Sorry, I only help with menu and food questions."`;
-  }
-
-  // Bulgarian system prompt - balanced for accuracy and cost
-  return `Ти си AI асистент за ${restaurantName}. ОТГОВАРЯШ САМО НА ВЪПРОСИ ЗА МЕНЮТО, ХРАНАТА И НАПИТКИТЕ.
-
-МЕНЮ: ${JSON.stringify(menuData, null, 2)}
-
-ВАЖНО - ОГРАНИЧЕНИЯ:
-- ОТГОВАРЯЙ САМО на въпроси за: храна, ястия, напитки, меню, препоръки, алергени, цени, диета
-- НЕ ОТГОВАРЯЙ на: география, политика, математика, общи знания, личен съвет
-- Ако въпросът НЕ Е за храната и напитките: "Извинявай, аз помагам само с въпроси за менюто и храната."
-
-АНАЛИЗ НА МЕНЮТО:
-- "hot": true = ЛЮТO ястие  
-- "veg": true = вегетарианско
-- "vgn": true = веган
-- "pop": true = популярно
-
-ПРАВИЛА ЗА ХРАНА И НАПИТКИ:
-1. Отговаряй в 2-3 изречения максимум
-2. Винаги проверявай свойствата на ястията и напитките точно
-3. Ако има люти ястия (hot: true), препоръчай ги за "люто"
-4. За напитки препоръчвай топли напитки за "топло" (кафе, чай)
-5. Включи ID-та в края: "RECOMMENDED_IDS: [id1, id2]"
-6. Обясни защо препоръчваш ястието/напитката
-
-ПРИМЕР ЗА ХРАНА:
-"За люто - препоръчвам Салата Цезар! Тя е означена като пикантна и е много популярна (11.98 лв).
-RECOMMENDED_IDS: [507f1f77bcf86cd799439011]"
-
-ПРИМЕР ЗА НАПИТКИ:
-"За топла напитка препоръчвам Кафе от Бразилия - ароматно и популярно (1.99 лв) или Мурсалски чай (2 лв).
-RECOMMENDED_IDS: [6895e01f87364470950b0413, 6895e09587364470950b0421]"
-
-ПРИМЕР ЗА НЕ-ХРАНА:
-Въпрос: "Коя е столицата на Австрия?"
-Отговор: "Извинявай, аз помагам само с въпроси за менюто и храната."`;
+Правила: Кратък отговор (2-3 изречения). Включи "RECOMMENDED_IDS: [id1,id2]" в края.`;
 }
 
 function parseAIResponse(aiResponse) {
@@ -325,84 +281,29 @@ function getFallbackRecommendations(userMessage, menuData, language) {
 
 // Pre-filter function to catch obvious non-food questions and save API costs
 function checkIfOffTopic(message, language) {
-  const lowerMessage = message.toLowerCase();
+  const msg = message.toLowerCase();
   
-  // Food-related keywords (allowed topics)
-  const foodKeywords = [
+  // Simple food keywords check (multiple languages)
+  const foodWords = [
     // Bulgarian
-    'храна', 'ястие', 'ястия', 'меню', 'препорък', 'алерген', 'цена', 'лев', 'лв', 'вегетариан', 'веган', 
-    'люто', 'пикантн', 'солен', 'сладк', 'киселин', 'горчив', 'салата', 'супа', 'пица', 'паста', 
-    'месо', 'риба', 'пиле', 'свинско', 'телешко', 'млечн', 'сирене', 'масло', 'хляб', 'десерт',
-    'напитка', 'вода', 'кафе', 'чай', 'сок', 'бира', 'вино', 'коктейл', 'диета', 'калори',
-    'порция', 'размер', 'готвене', 'печен', 'пърж', 'варен', 'сурово', 'свеж', 'топъл', 'студен',
-    'завтрак', 'обяд', 'вечеря', 'закуска', 'предястие', 'основно', 'гарнитура',
-    
+    'храна', 'ястие', 'меню', 'напитка', 'кафе', 'чай', 'пица', 'салата', 'цена', 'лв',
     // English  
-    'food', 'dish', 'dishes', 'menu', 'recommend', 'allergen', 'price', 'cost', 'vegetarian', 'vegan',
-    'spicy', 'hot', 'mild', 'sweet', 'sour', 'bitter', 'salty', 'salad', 'soup', 'pizza', 'pasta',
-    'meat', 'fish', 'chicken', 'pork', 'beef', 'dairy', 'cheese', 'butter', 'bread', 'dessert',
-    'drink', 'water', 'coffee', 'tea', 'juice', 'beer', 'wine', 'cocktail', 'diet', 'calories',
-    'portion', 'size', 'cooking', 'baked', 'fried', 'boiled', 'raw', 'fresh', 'warm', 'cold',
-    'breakfast', 'lunch', 'dinner', 'snack', 'appetizer', 'main', 'side'
+    'food', 'dish', 'menu', 'drink', 'coffee', 'tea', 'pizza', 'salad', 'price',
+    // Slovak
+    'jedlo', 'pokrm', 'menu', 'nápoj', 'káva', 'čaj', 'pizza', 'šalát', 'cena',
+    // German
+    'essen', 'gericht', 'menü', 'getränk', 'kaffee', 'tee', 'pizza', 'salat', 'preis'
   ];
   
-  // Obvious non-food topics (blocked)
-  const offTopicKeywords = [
-    // Geography & Places
-    'столица', 'град', 'държава', 'континент', 'океан', 'планина', 'река', 'море',
-    'capital', 'city', 'country', 'continent', 'ocean', 'mountain', 'river', 'sea',
-    'vienna', 'austria', 'sofia', 'bulgaria', 'europe', 'america', 'asia', 'africa',
-    
-    // Politics & History
-    'политика', 'партия', 'избори', 'президент', 'министър', 'война', 'история',
-    'politics', 'party', 'election', 'president', 'minister', 'war', 'history',
-    
-    // Math & Science
-    'математика', 'химия', 'физика', 'биология', 'формула', 'уравнение',
-    'mathematics', 'chemistry', 'physics', 'biology', 'formula', 'equation',
-    
-    // Technology (non-food related)
-    'компютър', 'софтуер', 'програма', 'интернет', 'android', 'iphone',
-    'computer', 'software', 'program', 'internet', 'android', 'iphone',
-    
-    // Personal advice
-    'връзка', 'любов', 'работа', 'кариера', 'семейство',
-    'relationship', 'love', 'job', 'career', 'family',
-    
-    // Entertainment
-    'филм', 'музика', 'книга', 'игра', 'спорт', 'футбол', 'тенис',
-    'movie', 'music', 'book', 'game', 'sport', 'football', 'tennis'
+  // Obvious non-food topics (multiple languages)
+  const badWords = [
+    'столица', 'политика', 'математика', 'компютър', 'времето', 'спорт',
+    'capital', 'politics', 'math', 'computer', 'weather', 'sport',
+    'hlavné', 'politika', 'matematika', 'počítač', 'počasie', 'šport'
   ];
   
-  // Check if message contains any food keywords
-  const hasFoodKeywords = foodKeywords.some(keyword => lowerMessage.includes(keyword));
+  const hasFoodWords = foodWords.some(word => msg.includes(word));
+  const hasBadWords = badWords.some(word => msg.includes(word));
   
-  // Check if message contains obvious off-topic keywords
-  const hasOffTopicKeywords = offTopicKeywords.some(keyword => lowerMessage.includes(keyword));
-  
-  // If it has off-topic keywords and no food keywords, it's probably off-topic
-  if (hasOffTopicKeywords && !hasFoodKeywords) {
-    return true;
-  }
-  
-  // If message is very short and has no food keywords, might be off-topic
-  if (lowerMessage.length < 10 && !hasFoodKeywords) {
-    return true;
-  }
-  
-  // Questions that are clearly not about food
-  const offTopicPatterns = [
-    /коя е столицата/i, /what is the capital/i,
-    /колко е \d+ \+ \d+/i, /what is \d+ \+ \d+/i,
-    /кой е президент/i, /who is the president/i,
-    /кога е роден/i, /when was.*born/i,
-    /как да направя/i, /how to make.*money/i,
-    /какво е времето/i, /what is the weather/i
-  ];
-  
-  if (offTopicPatterns.some(pattern => pattern.test(lowerMessage))) {
-    return true;
-  }
-  
-  return false;
+  return hasBadWords && !hasFoodWords;
 }

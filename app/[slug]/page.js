@@ -113,23 +113,32 @@ export default async function PublicMenuPage({ params }) {
       );
     }
 
-    // Fetch menu structure
-    const categories = await Category.find({ 
-      restaurantId: restaurant._id, 
-      isActive: true 
-    }).sort({ position: 1 });
+    // Fetch menu structure with better error handling
+    let categories, products;
     
-    const products = await MenuProduct.find({ 
-      restaurantId: restaurant._id, 
-      isActive: true 
-    }).sort({ position: 1 });
+    try {
+      categories = await Category.find({ 
+        restaurantId: restaurant._id, 
+        isActive: true 
+      }).sort({ position: 1 });
+      
+      products = await MenuProduct.find({ 
+        restaurantId: restaurant._id, 
+        isActive: true 
+      }).sort({ position: 1 });
+    } catch (dbError) {
+      console.error('Database error loading menu:', dbError);
+      // If database error, still show restaurant but with empty menu
+      categories = [];
+      products = [];
+    }
 
     // Pass raw data to client - language switching will be handled client-side
     const menuData = {
       restaurant: {
         ...JSON.parse(JSON.stringify(restaurant)),
         _id: restaurant._id.toString(),
-        ownerId: restaurant.ownerId.toString()
+        ownerId: restaurant.ownerId._id ? restaurant.ownerId._id.toString() : restaurant.ownerId.toString()
       },
       categories: categories.map(category => ({
         ...JSON.parse(JSON.stringify(category)),
@@ -152,21 +161,33 @@ export default async function PublicMenuPage({ params }) {
     
   } catch (error) {
     console.error('Error loading public menu:', error);
-    notFound();
+    
+    // Only trigger notFound for actual "not found" cases
+    if (error.message && error.message.includes('not found')) {
+      notFound();
+    }
+    
+    // For other errors, show a generic error page
+    return (
+      <main className="min-h-screen bg-base-100 flex items-center justify-center p-8">
+        <div className="text-center max-w-md">
+          <div className="w-24 h-24 mx-auto mb-6 bg-error/10 rounded-full flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-error" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+            </svg>
+          </div>
+          <h1 className="text-2xl font-bold mb-2">Something went wrong</h1>
+          <p className="text-base-content/70 mb-4">
+            There was an error loading the menu. Please try again later.
+          </p>
+          <a 
+            href={`/${slug}`}
+            className="btn btn-primary"
+          >
+            Try Again
+          </a>
+        </div>
+      </main>
+    );
   }
 }
-
-// Removed generateStaticParams to allow dynamic query parameters like ?lang=en
-// export async function generateStaticParams() {
-//   try {
-//     await connectMongo();
-//     const restaurants = await Restaurant.find({ isPublished: true }).select('slug');
-//     
-//     return restaurants.map((restaurant) => ({
-//       slug: restaurant.slug,
-//     }));
-//   } catch (error) {
-//     console.error('Error generating static params:', error);
-//     return [];
-//   }
-// }
