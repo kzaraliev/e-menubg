@@ -2,10 +2,10 @@ import themes from "daisyui/src/theming/themes";
 
 const config = {
   // REQUIRED
-  appName: "E-Menu",
+  appName: "e-menu.bg",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
   appDescription:
-    "Create beautiful digital menus for your restaurant with multi-language support and easy management.",
+    "Създайте красиви дигитални менюта за ресторанта си с многоезична поддръжка и лесно управление. QR кодове и AI асистент за ресторанти в България.",
   // REQUIRED (no https://, not trialing slash at the end, just the naked domain)
   domainName: "e-menu.bg",
   crisp: {
@@ -26,7 +26,7 @@ const config = {
         //  REQUIRED - Name of the plan, displayed on the pricing page
         name: "Starter",
         // A friendly description of the plan, displayed on the pricing page. Tip: explain why this plan and not others
-        description: "Perfect for small projects",
+        description: "Идеален за малки ресторанти",
         // The price you want to display, the one user will be charged on Stripe.
         price: 5.99,
         // Euro price for display
@@ -35,11 +35,13 @@ const config = {
         interval: "месец",
         features: [
           {
-            name: "NextJS boilerplate",
+            name: "Дигитално меню с QR кодове",
           },
-          { name: "User oauth" },
-          { name: "Database" },
-          { name: "Emails" },
+          { name: "До 5 категории" },
+          { name: "До 50 продукта" },
+          { name: "Многоезична поддръжка" },
+          { name: "Мигновени актуализации" },
+          { name: "Имейл поддръжка" },
         ],
       },
       {
@@ -49,8 +51,8 @@ const config = {
           process.env.NODE_ENV === "development"
             ? "price_1RsNEOHWilXYbGmnGSXsXeH1"
             : "price_1RsNEOHWilXYbGmnGSXsXeH1",
-        name: "Advanced",
-        description: "You need more power",
+        name: "Professional",
+        description: "За амбициозни ресторанти",
         price: 59.99,
         // Euro price for display
         priceEuro: 30.61,
@@ -60,13 +62,14 @@ const config = {
         priceAnchorEuro: 36.72,
         features: [
           {
-            name: "NextJS boilerplate",
+            name: "Всичко от Starter план",
           },
-          { name: "User oauth" },
-          { name: "Database" },
-          { name: "Emails" },
-          { name: "1 year of updates" },
-          { name: "24/7 support" },
+          { name: "Неограничени категории и продукти" },
+          { name: "AI асистент за клиенти" },
+          { name: "Персонализиране на QR кодове" },
+          { name: "SEO оптимизация" },
+          { name: "Приоритетна поддръжка" },
+          { name: "1 година актуализации" },
         ],
       },
     ],

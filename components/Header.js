@@ -10,16 +10,20 @@ import config from "@/config";
 
 const links = [
   {
+    href: "/about",
+    label: "За нас",
+  },
+  {
     href: "/#pricing",
-    label: "Pricing",
+    label: "Цени",
   },
   {
-    href: "/#testimonials",
-    label: "Reviews",
+    href: "/#features",
+    label: "Функции",
   },
   {
-    href: "/#faq",
-    label: "FAQ",
+    href: "/contact",
+    label: "Контакти",
   },
 ];
 
@@ -37,7 +41,7 @@ const Header = () => {
   }, [searchParams]);
 
   return (
-    <header className="bg-base-200">
+    <header className="bg-base-200 sticky top-0 z-50">
       <nav
         className="container flex items-center justify-between px-8 py-4 mx-auto"
         aria-label="Global"

@@ -5,8 +5,8 @@ const CTA = () => {
   return (
     <section className="relative hero overflow-hidden min-h-screen">
       <Image
-        src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80"
-        alt="Background"
+        src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=3540&q=80"
+        alt="Ресторант с модерно дигитално меню"
         className="object-cover w-full"
         fill
       />
@@ -14,16 +14,21 @@ const CTA = () => {
       <div className="relative hero-content text-center text-neutral-content p-8">
         <div className="flex flex-col items-center max-w-xl p-8 md:p-0">
           <h2 className="font-bold text-3xl md:text-5xl tracking-tight mb-8 md:mb-12">
-            Boost your app, launch, earn
+            Готови ли сте за <span className="text-primary">дигиталното бъдеще?</span>
           </h2>
           <p className="text-lg opacity-80 mb-12 md:mb-16">
-            Don&apos;t waste time integrating APIs or designing a pricing
-            section...
+            Присъединете се към стотиците ресторанти в България, които вече използват 
+            e-menu.bg за модерно и ефективно обслужване на клиентите си.
           </p>
 
-          <button className="btn btn-primary btn-wide">
-            Get {config.appName}
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a href="/api/auth/signin" className="btn btn-primary btn-wide">
+              Започнете безплатно
+            </a>
+            <a href="/contact" className="btn btn-outline btn-wide text-white border-white hover:bg-white hover:text-neutral">
+              Контакти
+            </a>
+          </div>
         </div>
       </div>
     </section>

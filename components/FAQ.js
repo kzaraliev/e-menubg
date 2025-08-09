@@ -7,22 +7,79 @@ import { useRef, useState } from "react";
 
 const faqList = [
   {
-    question: "What do I get exactly?",
-    answer: <div className="space-y-2 leading-relaxed">Loreum Ipseum</div>,
+    question: "Как да започна с E-Menu Bulgaria?",
+    answer: (
+      <div className="space-y-2 leading-relaxed">
+        <p>Много просто! Регистрирайте се с имейл адрес, създайте профил на ресторанта си и започнете да добавяте категории и продукти. Вашето дигитално меню ще бъде достъпно веднага на уникален URL адрес.</p>
+        <p>Ще получите и QR кодове за всяка маса, които можете да отпечатате и поставите в ресторанта си.</p>
+      </div>
+    ),
   },
   {
-    question: "Can I get a refund?",
+    question: "Поддържате ли други езици освен български?",
     answer: (
       <p>
-        Yes! You can request a refund within 7 days of your purchase. Reach out
-        by email.
+        Да! E-Menu Bulgaria поддържа български, английски, немски и руски език. Клиентите могат автоматично да виждат менюто на езика на браузъра си или ръчно да превключват между езиците. Това е идеално за туристически райони в България.
       </p>
     ),
   },
   {
-    question: "I have another question",
+    question: "Как работи AI асистентът?",
     answer: (
-      <div className="space-y-2 leading-relaxed">Cool, contact us by email</div>
+      <div className="space-y-2 leading-relaxed">
+        <p>AI асистентът е интелигентен помощник, който отговаря на въпросите на клиентите за менюто ви на всички поддържани езици. Той може да:</p>
+        <ul className="list-disc list-inside ml-4 space-y-1">
+          <li>Препоръча ястия въз основа на предпочитания</li>
+          <li>Отговори на въпроси за алергени и диетични ограничения</li>
+          <li>Обясни съставки и начини на приготвяне</li>
+          <li>Предложи подходящи комбинации от ястия</li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    question: "Мога ли да променям цените и менюто в реално време?",
+    answer: (
+      <p>
+        Абсолютно! Промените в менюто, цените и наличността на продуктите се актуализират мигновено. Не е нужно да печатате нови менюта - просто влезте в dashboard-а и направете промените. Клиентите ще видят новата информация веднага.
+      </p>
+    ),
+  },
+  {
+    question: "Включени ли са QR кодовете в цената?",
+    answer: (
+      <div className="space-y-2 leading-relaxed">
+        <p>Да! QR кодовете са напълно включени в цената на абонамента. Можете да генерирате QR кодове за всяка маса в ресторанта си и да ги персонализирате с лого и цветове.</p>
+        <p>QR кодовете водят директно до менюто ви и работят на всички смартфони без да е нужно специално приложение.</p>
+      </div>
+    ),
+  },
+  {
+    question: "Как работи SEO оптимизацията?",
+    answer: (
+      <div className="space-y-2 leading-relaxed">
+        <p>SEO оптимизацията гарантира, че менюто ви ще бъде видимо в Google търсенията:</p>
+        <ul className="list-disc list-inside ml-4 space-y-1">
+          <li>Автоматично генериране на SEO-friendly URL адреси</li>
+          <li>Структурирани данни за ресторанти</li>
+          <li>Оптимизирани мета тагове на всички езици</li>
+          <li>Бързо зареждане за подобро класиране</li>
+        </ul>
+        <p>Това означава, че клиентите ще намират ресторанта ви по-лесно онлайн.</p>
+      </div>
+    ),
+  },
+  {
+    question: "Имам друг въпрос",
+    answer: (
+      <div className="space-y-2 leading-relaxed">
+        <p>Отлично! Нашият екип е винаги готов да помогне. Свържете се с нас:</p>
+        <ul className="list-disc list-inside ml-4 space-y-1">
+          <li>Имейл: support@e-menu.bg (отговаряме до 4 часа)</li>
+          <li>Телефон: +359 888 123 456</li>
+          <li>Или използвайте контактната форма на сайта</li>
+        </ul>
+      </div>
     ),
   },
 ];
@@ -92,9 +149,9 @@ const FAQ = () => {
     <section className="bg-base-200" id="faq">
       <div className="py-24 px-8 max-w-7xl mx-auto flex flex-col md:flex-row gap-12">
         <div className="flex flex-col text-left basis-1/2">
-          <p className="inline-block font-semibold text-primary mb-4">FAQ</p>
+          <p className="inline-block font-semibold text-primary mb-4">ЧЗВ</p>
           <p className="sm:text-4xl text-3xl font-extrabold text-base-content">
-            Frequently Asked Questions
+            Често задавани въпроси
           </p>
         </div>
 
