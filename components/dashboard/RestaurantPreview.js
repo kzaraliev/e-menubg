@@ -2,6 +2,7 @@
 
 import config from "@/config";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function RestaurantPreview({ restaurant }) {
   const formatOperatingHours = (hours) => {
@@ -34,7 +35,7 @@ export default function RestaurantPreview({ restaurant }) {
           <div className="flex items-start gap-6">
             {restaurant.logoUrl && (
               <div className="w-24 h-24 bg-base-200 rounded-lg flex items-center justify-center">
-                <img 
+                <Image 
                   src={restaurant.logoUrl} 
                   alt={restaurant.name}
                   className="w-full h-full object-cover rounded-lg"

@@ -21,6 +21,7 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { toast } from 'react-hot-toast';
+import Image from 'next/image';
 
 // Sortable Category Item Component
 function SortableCategory({ category, selectedCategory, onSelectCategory, onEditCategory, onDeleteCategory, isLoading, index }) {
@@ -67,7 +68,7 @@ function SortableCategory({ category, selectedCategory, onSelectCategory, onEdit
           {/* Category Image or Icon */}
           <div className="w-12 h-12 rounded-lg bg-base-200 flex items-center justify-center flex-shrink-0 overflow-hidden">
             {category.imageUrl ? (
-              <img 
+              <Image
                 src={category.imageUrl} 
                 alt={category.name}
                 className="w-full h-full object-cover rounded-lg"
@@ -261,7 +262,7 @@ export default function CategoryList({
                       return (
                         <div className="w-10 h-10 rounded-lg bg-base-200 flex items-center justify-center flex-shrink-0 overflow-hidden">
                           {category?.imageUrl ? (
-                            <img 
+                            <Image 
                               src={category.imageUrl} 
                               alt={category.name}
                               className="w-full h-full object-cover rounded-lg"

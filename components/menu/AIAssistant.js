@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { getUIText } from "@/libs/uiTranslations";
 import ChatMessage from "./ChatMessage";
 
@@ -22,7 +22,7 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
   };
 
   // Simple, fast typewriter effect
-  const typeMessage = (fullText, messageId, isWelcome = false) => {
+  const typeMessage = useCallback((fullText, messageId, isWelcome = false) => {
     setTypingMessage({ id: messageId, content: '', timestamp: new Date() });
     
     let currentIndex = 0;
@@ -56,7 +56,7 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
         setTypingMessage(null);
       }
     }, typingSpeed);
-  };
+  }, [scrollToBottom]);
 
   useEffect(() => {
     scrollToBottom();

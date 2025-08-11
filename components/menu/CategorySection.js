@@ -2,6 +2,7 @@
 
 import ProductCard from "./ProductCard";
 import config from "@/config";
+import Image from "next/image";
 
 export default function CategorySection({ category, restaurantSettings, currentLanguage = 'bg' }) {
   if (!category.products || category.products.length === 0) {
@@ -40,7 +41,7 @@ export default function CategorySection({ category, restaurantSettings, currentL
         {/* Category Image */}
         {category.imageUrl && (
           <div className="w-full h-48 lg:h-64 rounded-xl overflow-hidden shadow-lg mb-6">
-            <img 
+            <Image 
               src={category.imageUrl} 
               alt={category.name}
               className="w-full h-full object-cover"

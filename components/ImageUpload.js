@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import Image from 'next/image';
 
 export default function ImageUpload({ 
   currentImageUrl = '', 
@@ -187,7 +188,7 @@ export default function ImageUpload({
                 onClick={handleClick}
                 title="Кликнете за промяна на изображението"
               >
-                <img 
+                <Image
                   src={previewUrl} 
                   alt="Предварителен преглед"
                   className={`w-full h-48 object-cover transition-all duration-200 ${

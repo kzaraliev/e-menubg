@@ -2,6 +2,7 @@
 
 import config from "@/config";
 import { getUIText, translateAllergen } from "@/libs/uiTranslations";
+import Image from "next/image";
 
 export default function ProductCard({ product, restaurantSettings, currentLanguage = 'bg' }) {
   const formatPrice = (priceBGN) => {
@@ -24,7 +25,7 @@ export default function ProductCard({ product, restaurantSettings, currentLangua
       {/* Product Image */}
       {product.imageUrl ? (
         <figure className="h-48 overflow-hidden">
-          <img 
+          <Image 
             src={product.imageUrl} 
             alt={product.name}
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"

@@ -188,7 +188,7 @@ function parseAIResponse(aiResponse) {
 }
 
 // Intelligent fallback system when OpenAI is not available
-function getFallbackRecommendations(userMessage, menuData) {
+function getFallbackRecommendations(userMessage, menuData, language = 'bg') {
   const { categories } = menuData;
   const message = userMessage.toLowerCase();
   

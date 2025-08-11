@@ -22,6 +22,7 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { toast } from 'react-hot-toast';
+import Image from 'next/image';
 
 // Sortable Product Item Component
 function SortableProduct({ product, onEditProduct, onDeleteProduct, isLoading, formatPrice }) {
@@ -63,7 +64,7 @@ function SortableProduct({ product, onEditProduct, onDeleteProduct, isLoading, f
         {/* Product Image */}
         <div className="w-16 h-16 bg-base-200 rounded-lg flex items-center justify-center flex-shrink-0">
           {product.imageUrl ? (
-            <img 
+            <Image 
               src={product.imageUrl} 
               alt={product.name}
               className="w-full h-full object-cover rounded-lg"

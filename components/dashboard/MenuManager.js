@@ -27,7 +27,7 @@ export default function MenuManager({ restaurant, initialCategories, initialProd
     }
   }, [categories, selectedCategory]);
 
-  const fetchCategories = async () => {
+  const fetchCategories = async () => { // Used for refetching categories when needed
     try {
       const response = await fetch(`/api/categories?restaurantId=${restaurant._id}`);
       if (response.ok) {
@@ -39,7 +39,7 @@ export default function MenuManager({ restaurant, initialCategories, initialProd
     }
   };
 
-  const fetchProducts = async (categoryId = null) => {
+  const fetchProducts = async (categoryId = null) => { // Used for refetching products when needed
     try {
       const url = categoryId 
         ? `/api/products?categoryId=${categoryId}`

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useQRCode } from "next-qrcode";
 import config from "@/config";
 
@@ -35,13 +35,13 @@ export default function QRCodeGenerator({ restaurants = [] }) {
   };
 
   // Генериране на WiFi конфигурация
-  const generateWifiQR = () => {
+  const generateWifiQR = useCallback(() => {
     const { ssid, password, security } = wifiConfig;
     return `WIFI:T:${security};S:${ssid};P:${password};;`;
-  };
+  }, [wifiConfig]);
 
   // Генериране на QR данни въз основа на типа
-  const generateQRData = () => {
+  const generateQRData = useCallback(() => {
     const restaurant = restaurants.find((r) => r._id == selectedRestaurant);
 
     switch (qrType) {
@@ -60,7 +60,7 @@ export default function QRCodeGenerator({ restaurants = [] }) {
       default:
         return "";
     }
-  };
+  }, [restaurants, selectedRestaurant, qrType, wifiConfig.ssid, generateWifiQR]);
 
   // Auto-update QR data when key dependencies change
   useEffect(() => {

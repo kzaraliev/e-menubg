@@ -2,6 +2,7 @@
 
 import { getUIText } from "@/libs/uiTranslations";
 import config from "@/config";
+import Image from "next/image";
 
 export default function RestaurantHeader({ restaurant, currentLanguage = 'bg' }) {
   const formatOperatingHours = (hours) => {
@@ -40,7 +41,7 @@ export default function RestaurantHeader({ restaurant, currentLanguage = 'bg' })
           {/* Logo */}
           {restaurant.logoUrl && (
             <div className="w-24 h-24 lg:w-32 lg:h-32 bg-white rounded-xl shadow-lg overflow-hidden flex-shrink-0">
-              <img 
+              <Image 
                 src={restaurant.logoUrl} 
                 alt={restaurant.name}
                 className="w-full h-full object-cover"
