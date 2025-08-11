@@ -7,6 +7,7 @@ import connectMongo from "./mongo";
 export const authOptions = {
   // Set any random key in .env.local
   secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === "development",
   providers: [
     GoogleProvider({
       // Follow the "Login with Google" tutorial to get your credentials
@@ -43,7 +44,9 @@ export const authOptions = {
   // New users will be saved in Database (MongoDB Atlas). Each user (model) has some fields like name, email, image, etc..
   // Requires a MongoDB database. Set MONOGODB_URI env variable.
   // Learn more about the model type: https://next-auth.js.org/v3/adapters/models
-  ...(connectMongo && { adapter: MongoDBAdapter(connectMongo) }),
+  ...(connectMongo && { 
+    adapter: MongoDBAdapter(connectMongo),
+  }),
 
   callbacks: {
     session: async ({ session, token }) => {
@@ -53,6 +56,10 @@ export const authOptions = {
       return session;
     },
   },
+  pages: {
+    signIn: "/api/auth/signin",
+    error: "/api/auth/error",
+  },
   session: {
     strategy: "jwt",
   },
@@ -60,6 +67,6 @@ export const authOptions = {
     brandColor: config.colors.main,
     // Add you own logo below. Recommended size is rectangle (i.e. 200x50px) and show your logo + name.
     // It will be used in the login flow to display your logo. If you don't add it, it will look faded.
-    logo: `https://${config.domainName}/logoAndName.png`,
+    logo: `https://${config.domainName}/icon.png`,
   },
 };
