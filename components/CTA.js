@@ -5,7 +5,7 @@ const CTA = () => {
   return (
     <section className="relative hero overflow-hidden min-h-screen">
       <Image
-        src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=3540&q=80"
+        src="/images/cta-baner.webp"
         alt="Ресторант с модерно дигитално меню"
         className="object-cover w-full"
         fill

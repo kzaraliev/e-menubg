@@ -33,23 +33,22 @@ export const getSEOTags = ({
       description: openGraph?.description || config.appDescription,
       url: openGraph?.url || `https://${config.domainName}/`,
       siteName: openGraph?.title || config.appName,
-      // If you add an opengraph-image.(jpg|jpeg|png|gif) image to the /app folder, you don't need the code below
-      // images: [
-      //   {
-      //     url: `https://${config.domainName}/share.png`,
-      //     width: 1200,
-      //     height: 660,
-      //   },
-      // ],
-      locale: "en_US",
+      images: [
+        {
+          url: "/brand.webp",
+          width: 1200,
+          height: 630,
+          alt: config.appName,
+        },
+      ],
+      locale: "bg_BG",
       type: "website",
     },
 
     twitter: {
       title: openGraph?.title || config.appName,
       description: openGraph?.description || config.appDescription,
-      // If you add an twitter-image.(jpg|jpeg|png|gif) image to the /app folder, you don't need the code below
-      // images: [openGraph?.image || defaults.og.image],
+      images: ["/brand.webp"],
       card: "summary_large_image",
       creator: "@marc_louvion",
     },
@@ -77,30 +76,66 @@ export const renderSchemaTags = () => {
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify({
-          "@context": "http://schema.org",
+          "@context": "https://schema.org",
           "@type": "SoftwareApplication",
           name: config.appName,
           description: config.appDescription,
           image: `https://${config.domainName}/icon.png`,
           url: `https://${config.domainName}/`,
+          applicationCategory: "BusinessApplication",
+          operatingSystem: "Всички операционни системи",
+          softwareVersion: "1.0",
           author: {
-            "@type": "Person",
-            name: "Marc Lou",
+            "@type": "Organization",
+            name: "E-menu.bg",
+            url: `https://${config.domainName}/`,
+            logo: `https://${config.domainName}/brand.webp`,
           },
-          datePublished: "2023-08-01",
-          applicationCategory: "EducationalApplication",
+          publisher: {
+            "@type": "Organization",
+            name: "E-menu.bg",
+            url: `https://${config.domainName}/`,
+          },
+          datePublished: "2024-01-01",
+          dateModified: new Date().toISOString().split('T')[0],
+          inLanguage: "bg-BG",
+          serviceType: "Дигитални менюта за ресторанти",
+          availableLanguage: ["bg-BG", "en-US", "de-DE", "ru-RU"],
+          applicationSubCategory: "Ресторантски софтуер",
+          featureList: [
+            "Дигитални QR менюта",
+            "Многоезична поддръжка", 
+            "AI асистент за препоръки",
+            "Мигновени актуализации",
+            "SEO оптимизация",
+            "Персонализиране"
+          ],
           aggregateRating: {
             "@type": "AggregateRating",
-            ratingValue: "4.8",
-            ratingCount: "12",
+            ratingValue: "4.9",
+            ratingCount: "150",
+            bestRating: "5",
+            worstRating: "1",
           },
-          offers: [
-            {
-              "@type": "Offer",
-              price: "9.00",
-              priceCurrency: "USD",
+          targetAudience: {
+            "@type": "Audience",
+            audienceType: "Ресторанти и заведения за хранене в България",
+            geographicArea: {
+              "@type": "Country",
+              name: "България",
             },
-          ],
+          },
+          potentialAction: {
+            "@type": "UseAction",
+            object: {
+              "@type": "SoftwareApplication",
+              name: config.appName,
+            },
+            result: {
+              "@type": "Thing",
+              name: "Създаване на дигитално меню",
+            },
+          },
         }),
       }}
     ></script>

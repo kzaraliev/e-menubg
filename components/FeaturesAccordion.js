@@ -16,7 +16,7 @@ const features = [
     description:
       "Интелигентен помощник, който отговаря на въпросите на клиентите за менюто на български, английски, немски и руски език. Препоръчва ястия въз основа на предпочитанията и алергии.",
     type: "image",
-    path: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=3540&q=80",
+    path: "/images/ai-asistent.webp",
     alt: "AI Assistant",
     svg: (
       <svg
@@ -40,7 +40,7 @@ const features = [
     description:
       "Автоматично генериране на персонализирани QR кодове за всяка маса в ресторанта. Клиентите сканират и веднага виждат актуалното меню на техния език.",
     type: "image",
-    path: "https://images.unsplash.com/photo-1625314887424-9f190599bd56?ixlib=rb-4.0.3&auto=format&fit=crop&w=3540&q=80",
+    path: "/images/qr-kodove.webp",
     alt: "QR Code",
     svg: (
       <svg
@@ -64,7 +64,7 @@ const features = [
     description:
       "Менютата се показват на български, английски, немски и руски език. Автоматично разпознаване на езика на браузъра или ръчно превключване от клиентите.",
     type: "image",
-    path: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?ixlib=rb-4.0.3&auto=format&fit=crop&w=3540&q=80",
+    path: "/images/multilanguage.webp",
     alt: "Multi-language support",
     svg: (
       <svg
@@ -88,7 +88,7 @@ const features = [
     description:
       "Автоматична SEO оптимизация на менютата ви за подобра видимост в Google търсенията. Структурирани данни, бързо зареждане и оптимизирани URL адреси.",
     type: "image", 
-    path: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=3540&q=80",
+    path: "/images/seo-optimizaciya.webp",
     alt: "SEO optimization",
     svg: (
       <svg

@@ -31,7 +31,7 @@ const Hero = () => {
       </div>
       <div className="lg:w-full">
         <Image
-          src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=3540&q=80"
+          src="/images/digitalno-menu.webp"
           alt="Ресторант с дигитално меню"
           className="w-full rounded-2xl shadow-2xl"
           priority={true}
