@@ -67,6 +67,8 @@ function SortableProduct({ product, onEditProduct, onDeleteProduct, isLoading, f
             <Image 
               src={product.imageUrl} 
               alt={product.name}
+              width={64}
+              height={64}
               className="w-full h-full object-cover rounded-lg"
             />
           ) : (

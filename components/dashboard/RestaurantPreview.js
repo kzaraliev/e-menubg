@@ -38,6 +38,8 @@ export default function RestaurantPreview({ restaurant }) {
                 <Image 
                   src={restaurant.logoUrl} 
                   alt={restaurant.name}
+                  width={96}
+                  height={96}
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>

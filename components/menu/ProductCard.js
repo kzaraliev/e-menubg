@@ -28,6 +28,8 @@ export default function ProductCard({ product, restaurantSettings, currentLangua
           <Image 
             src={product.imageUrl} 
             alt={product.name}
+            width={400}
+            height={192}
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
           />
         </figure>

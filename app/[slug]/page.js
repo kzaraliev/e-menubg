@@ -16,32 +16,32 @@ export async function generateMetadata({ params }) {
     
     if (!restaurant) {
       return {
-        title: 'Restaurant Not Found',
-        description: 'The requested restaurant could not be found.'
+        title: 'Ресторант не е намерен',
+        description: 'Търсеният ресторант не може да бъде намерен.'
       };
     }
 
     return {
-      title: `${restaurant.name} - Digital Menu`,
-      description: restaurant.description || `View the menu for ${restaurant.name}`,
+      title: `${restaurant.name} - Дигитално меню`,
+      description: restaurant.description || `Разгледайте менюто на ${restaurant.name} с QR код`,
       openGraph: {
-        title: `${restaurant.name} - Digital Menu`,
-        description: restaurant.description || `View the menu for ${restaurant.name}`,
+        title: `${restaurant.name} - Дигитално меню`,
+        description: restaurant.description || `Разгледайте менюто на ${restaurant.name} с QR код`,
         images: restaurant.logoUrl ? [restaurant.logoUrl] : [],
         type: 'website',
-        siteName: restaurant.name,
-        locale: 'en_US',
+        siteName: 'E-Menu.bg',
+        locale: 'bg_BG',
         url: `https://${process.env.NEXT_PUBLIC_DOMAIN || 'localhost:3000'}/${restaurant.slug}`,
       },
       twitter: {
         card: 'summary_large_image',
-        title: `${restaurant.name} - Digital Menu`,
-        description: restaurant.description || `View the menu for ${restaurant.name}`,
+        title: `${restaurant.name} - Дигитално меню`,
+        description: restaurant.description || `Разгледайте менюто на ${restaurant.name} с QR код`,
         images: restaurant.logoUrl ? [restaurant.logoUrl] : [],
       },
       robots: {
-        index: restaurant.isPublished,
-        follow: restaurant.isPublished
+        index: true,
+        follow: true
       },
       // Add structured data for better SEO
       other: {
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }) {
           "@context": "https://schema.org",
           "@type": "Restaurant",
           "name": restaurant.name,
-          "description": restaurant.description || `Digital menu for ${restaurant.name}`,
+          "description": restaurant.description || `Дигитално меню за ${restaurant.name}`,
           "url": `https://${process.env.NEXT_PUBLIC_DOMAIN || 'localhost:3000'}/${restaurant.slug}`,
           ...(restaurant.logoUrl && { "image": restaurant.logoUrl }),
           ...(restaurant.priceRange && { "priceRange": restaurant.priceRange }),
@@ -73,8 +73,8 @@ export async function generateMetadata({ params }) {
   } catch (error) {
     console.error('Error generating metadata:', error);
     return {
-      title: 'Digital Menu',
-      description: 'Restaurant digital menu'
+      title: 'Дигитално меню',
+      description: 'Дигитално меню за ресторант'
     };
   }
 }

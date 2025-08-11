@@ -71,6 +71,8 @@ function SortableCategory({ category, selectedCategory, onSelectCategory, onEdit
               <Image
                 src={category.imageUrl} 
                 alt={category.name}
+                width={48}
+                height={48}
                 className="w-full h-full object-cover rounded-lg"
               />
             ) : category.iconName ? (
@@ -265,6 +267,8 @@ export default function CategoryList({
                             <Image 
                               src={category.imageUrl} 
                               alt={category.name}
+                              width={40}
+                              height={40}
                               className="w-full h-full object-cover rounded-lg"
                             />
                           ) : category?.iconName ? (

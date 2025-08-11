@@ -44,6 +44,8 @@ export default function CategorySection({ category, restaurantSettings, currentL
             <Image 
               src={category.imageUrl} 
               alt={category.name}
+              width={800}
+              height={256}
               className="w-full h-full object-cover"
             />
           </div>
