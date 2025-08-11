@@ -26,7 +26,7 @@ import config from "@/config";
 // Please write a simple privacy policy for my site. Add the current date.  Do not add or explain your reasoning. Answer:
 
 export const metadata = getSEOTags({
-  title: `Privacy Policy | ${config.appName}`,
+  title: `Политика за поверителност | ${config.appName}`,
   canonicalUrlRelative: "/privacy-policy",
 });
 
@@ -47,61 +47,88 @@ const PrivacyPolicy = () => {
               clipRule="evenodd"
             />
           </svg>{" "}
-          Back
+          Назад
         </Link>
         <h1 className="text-3xl font-extrabold pb-6">
-          Privacy Policy for {config.appName}
+          Политика за поверителност на {config.appName}
         </h1>
 
         <pre
           className="leading-relaxed whitespace-pre-wrap"
           style={{ fontFamily: "sans-serif" }}
         >
-          {`Last Updated: 2023-08-25
+          {`Последна актуализация: ${new Date().toLocaleDateString('bg-BG')}
 
-Thank you for visiting ShipFast ("we," "us," or "our"). This Privacy Policy outlines how we collect, use, and protect your personal and non-personal information when you use our website located at https://shipfa.st (the "Website").
+Благодарим ви, че посетихте e-menu.bg ("ние", "нас" или "нашия"). Настоящата Политика за поверителност описва как събираме, използваме и защитаваме вашата лична и нелична информация, когато използвате нашия уебсайт, разположен на адрес https://e-menu.bg ("Уебсайтът").
 
-By accessing or using the Website, you agree to the terms of this Privacy Policy. If you do not agree with the practices described in this policy, please do not use the Website.
+Чрез достъпване или използване на Уебсайта, вие се съгласявате с условията на тази Политика за поверителност. Ако не се съгласявате с практиките, описани в тази политика, моля, не използвайте Уебсайта.
 
-1. Information We Collect
+1. Информация, която събираме
 
-1.1 Personal Data
+1.1 Лични данни
 
-We collect the following personal information from you:
+Събираме следната лична информация от вас:
 
-Name: We collect your name to personalize your experience and communicate with you effectively.
-Email: We collect your email address to send you important information regarding your orders, updates, and communication.
-Payment Information: We collect payment details to process your orders securely. However, we do not store your payment information on our servers. Payments are processed by trusted third-party payment processors.
+Име: Събираме вашето име, за да персонализираме вашето изживяване и да комуникираме с вас ефективно.
+Имейл: Събираме вашия имейл адрес, за да ви изпращаме важна информация относно вашия абонамент, актуализации и комуникация.
+Информация за заведението: Събираме данни за вашия ресторант включително име, адрес, часове на работа и контактна информация за създаване на вашето дигитално меню.
+Платежна информация: Събираме платежни данни за сигурна обработка на вашите абонаменти. Не съхраняваме вашата платежна информация на нашите сървъри. Плащанията се обработват от доверени трети страни за обработка на плащания.
+Данни за менюто: Събираме информация за вашите продукти, категории, цени и описания за създаване на вашето дигитално меню.
 
-1.2 Non-Personal Data
+1.2 Нелични данни
 
-We may use web cookies and similar technologies to collect non-personal information such as your IP address, browser type, device information, and browsing patterns. This information helps us to enhance your browsing experience, analyze trends, and improve our services.
+Можем да използваме уеб бисквитки и подобни технологии за събиране на нелична информация като вашия IP адрес, тип браузър, информация за устройството и модели на търсене. Тази информация ни помага да подобрим вашето изживяване при сърфиране, да анализираме тенденции и да подобрим нашите услуги.
 
-2. Purpose of Data Collection
+2. Цел на събирането на данни
 
-We collect and use your personal data for the sole purpose of order processing. This includes processing your orders, sending order confirmations, providing customer support, and keeping you updated about the status of your orders.
+Събираме и използваме вашите лични данни за следните цели:
+- Обработка на абонаменти и управление на акаунти
+- Създаване и поддръжка на вашето дигитално меню
+- Изпращане на потвърждения за абонамент и фактуриране
+- Предоставяне на клиентска поддръжка
+- Подобряване на нашите услуги и функции
+- Изпращане на актуализации относно статуса на услугата
 
-3. Data Sharing
+3. Споделяне на данни
 
-We do not share your personal data with any third parties except as required for order processing (e.g., sharing your information with payment processors). We do not sell, trade, or rent your personal information to others.
+Не споделяме вашите лични данни с трети страни, освен когато е необходимо за:
+- Обработка на плащания (например, споделяне на информация с платежни процесори като Stripe)
+- Спазване на правни изисквания
+- Защита на нашите права или собственост
 
-4. Children's Privacy
+Не продаваме, търгуваме или отдаваме под наем вашата лична информация на други.
 
-ShipFast is not intended for children under the age of 13. We do not knowingly collect personal information from children. If you are a parent or guardian and believe that your child has provided us with personal information, please contact us at the email address provided below.
+4. Защита на данните
 
-5. Updates to the Privacy Policy
+Използваме подходящи технически и организационни мерки за защита на вашите лични данни срещу неоторизиран достъп, промяна, разкриване или унищожаване. Вашите данни се съхраняват на сигурни сървъри и се шифроват при предаване.
 
-We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. Any updates will be posted on this page, and we may notify you via email about significant changes.
+5. Ваши права (GDPR)
 
-6. Contact Information
+Съгласно Общия регламент за защита на данните (GDPR), имате следните права:
+- Право на достъп до вашите лични данни
+- Право на поправка на неточни данни
+- Право на изтриване на данни ("правото да бъдете забравени")
+- Право на ограничаване на обработката
+- Право на преносимост на данните
+- Право на възражение срещу обработката
 
-If you have any questions, concerns, or requests related to this Privacy Policy, you can contact us at:
+6. Поверителност на деца
 
-Email: marc@shipfa.st
+e-menu.bg не е предназначен за деца под 16-годишна възраст. Не събираме съзнателно лична информация от деца. Ако сте родител или настойник и смятате, че вашето дете ни е предоставило лична информация, моля, свържете се с нас на посочения по-долу имейл адрес.
 
-For all other inquiries, please visit our Contact Us page on the Website.
+7. Актуализации на Политиката за поверителност
 
-By using ShipFast, you consent to the terms of this Privacy Policy.`}
+Можем да актуализираме тази Политика за поверителност от време на време, за да отразим промени в нашите практики или по други оперативни, правни или регулаторни причини. Всички актуализации ще бъдат публикувани на тази страница и можем да ви уведомим чрез имейл за значителни промени.
+
+8. Контактна информация
+
+Ако имате въпроси, притеснения или заявки, свързани с тази Политика за поверителност, можете да се свържете с нас на:
+
+Имейл: support@e-menu.bg
+
+За всички други запитвания, моля, посетете нашата страница за контакти на Уебсайта.
+
+Използвайки e-menu.bg, вие се съгласявате с условията на тази Политика за поверителност.`}
         </pre>
       </div>
     </main>

@@ -26,7 +26,7 @@ import config from "@/config";
 // Please write a simple Terms & Services for my site. Add the current date. Do not add or explain your reasoning. Answer:
 
 export const metadata = getSEOTags({
-  title: `Terms and Conditions | ${config.appName}`,
+  title: `Общи условия | ${config.appName}`,
   canonicalUrlRelative: "/tos",
 });
 
@@ -47,49 +47,61 @@ const TOS = () => {
               clipRule="evenodd"
             />
           </svg>
-          Back
+          Назад
         </Link>
         <h1 className="text-3xl font-extrabold pb-6">
-          Terms and Conditions for {config.appName}
+          Общи условия за {config.appName}
         </h1>
 
         <pre
           className="leading-relaxed whitespace-pre-wrap"
           style={{ fontFamily: "sans-serif" }}
         >
-          {`Last Updated: September 26, 2023
+          {`Последна актуализация: ${new Date().toLocaleDateString('bg-BG')}
 
-Welcome to ShipFast!
+Добре дошли в e-menu.bg!
 
-These Terms of Service ("Terms") govern your use of the ShipFast website at https://shipfa.st ("Website") and the services provided by ShipFast. By using our Website and services, you agree to these Terms.
+Настоящите Общи условия ("Условия") регулират използването на уебсайта e-menu.bg на адрес https://e-menu.bg ("Уебсайт") и услугите, предоставяни от e-menu. Използвайки нашия уебсайт и услуги, вие се съгласявате с тези Условия.
 
-1. Description of ShipFast
+1. Описание на e-menu
 
-ShipFast is a platform that offers a JavaScript code boilerplate to assist entrepreneurs in launching their startups more efficiently.
+e-menu е платформа за дигитални менюта на ресторанти, която позволява на заведенията за хранене да създават и управляват своите менюта в дигитален формат с QR кодове и многоезична поддръжка.
 
-2. Ownership and Usage Rights
+2. Права за ползване и собственост
 
-When you purchase a package from ShipFast, you gain the right to download and use the code provided for creating applications. You own the code you create but do not have the right to resell it. We offer a full refund within 7 days of purchase, as specified in our refund policy.
+При закупуване на абонамент от e-menu, вие получавате правото да използвате платформата на месечна или годишна база, съгласно избрания план. Вие запазвате собствеността върху вашите данни и съдържание, но не притежавате правата върху софтуера на платформата. Предлагаме пълно възстановяване на сумата в рамките на 14 дни от покупката.
 
-3. User Data and Privacy
+3. Потребителски данни и поверителност
 
-We collect and store user data, including name, email, and payment information, as necessary to provide our services. For details on how we handle your data, please refer to our Privacy Policy at https://shipfa.st/privacy-policy.
+Събираме и съхраняваме потребителски данни, включително име, имейл и платежна информация, необходими за предоставянето на нашите услуги. За подробности относно обработката на вашите данни, моля, вижте нашата Политика за поверителност на адрес https://e-menu.bg/privacy-policy.
 
-4. Non-Personal Data Collection
+4. Събиране на неперсонални данни
 
-We use web cookies to collect non-personal data for the purpose of improving our services and user experience.
+Използваме уеб бисквитки за събиране на неперсонални данни с цел подобряване на нашите услуги и потребителското изживяване.
 
-5. Governing Law
+5. Абонаментни планове
 
-These Terms are governed by the laws of France.
+Плащанията се извършват в български лева (BGN). Автоматичното подновяване може да бъде отменено по всяко време от потребителския панел.
 
-6. Updates to the Terms
+6. Отговорности на потребителя
 
-We may update these Terms from time to time. Users will be notified of any changes via email.
+Потребителят е отговорен за:
+- Предоставянето на точна информация за своето заведение
+- Спазването на българското законодателство при използването на услугата
+- Редовното актуализиране на менютата и цените
+- Неразпространяването на незаконно съдържание
 
-For any questions or concerns regarding these Terms of Service, please contact us at marc@shipfa.st.
+7. Приложимо право
 
-Thank you for using ShipFast!`}
+Настоящите Условия се регулират от законодателството на Република България.
+
+8. Актуализации на Условията
+
+Можем да актуализираме тези Условия от време на време. Потребителите ще бъдат уведомени за промените чрез имейл.
+
+За въпроси или притеснения относно настоящите Общи условия, моля, свържете се с нас на support@e-menu.bg.
+
+Благодарим ви, че използвате e-menu.bg!`}
         </pre>
       </div>
     </main>
