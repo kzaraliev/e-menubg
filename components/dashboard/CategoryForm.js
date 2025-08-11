@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { toast } from "react-hot-toast";
+
 import ImageUpload from "@/components/ImageUpload";
 
 export default function CategoryForm({ category, onSave, onCancel, isLoading }) {

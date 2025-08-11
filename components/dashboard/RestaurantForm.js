@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { toast } from "react-hot-toast";
+
 import ImageUpload from "@/components/ImageUpload";
 import config from "@/config";
 
@@ -68,7 +68,7 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
       // For existing restaurants, consider the slug as manually set
       setIsSlugManuallyEdited(true);
     }
-  }, [restaurant]);
+  }, [restaurant, formData.settings]);
 
   const generateSlug = (name) => {
     // Transliteration map for Bulgarian Cyrillic to Latin

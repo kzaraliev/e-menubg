@@ -3,7 +3,7 @@ import connectMongo from "@/libs/mongoose";
 import Restaurant from "@/models/Restaurant";
 import Category from "@/models/Category";
 import MenuProduct from "@/models/MenuProduct";
-import User from "@/models/User";
+
 import PublicMenu from "@/components/menu/PublicMenu";
 
 // Generate metadata for SEO
@@ -59,7 +59,7 @@ export async function generateMetadata({ params }) {
           ...(restaurant.website && { "url": restaurant.website }),
           ...(restaurant.operatingHours && {
             "openingHoursSpecification": Object.entries(restaurant.operatingHours)
-              .filter(([_, hours]) => !hours.closed && hours.open && hours.close)
+              .filter(([, hours]) => !hours.closed && hours.open && hours.close)
               .map(([day, hours]) => ({
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": day.charAt(0).toUpperCase() + day.slice(1),

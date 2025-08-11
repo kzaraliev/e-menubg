@@ -46,7 +46,7 @@ export default function FixOperatingHours({ onFixed }) {
       <div className="card-body">
         <h3 className="card-title text-warning">Operating Hours Issue Detected</h3>
         <p className="text-sm">
-          Your restaurant's operating hours are missing open/close times. This causes display issues like "undefined - undefined".
+          Your restaurant&apos;s operating hours are missing open/close times. This causes display issues like &ldquo;undefined - undefined&rdquo;.
         </p>
         <p className="text-sm">
           Click the button below to automatically fix this issue.

@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { toast } from "react-hot-toast";
+
 import ImageUpload from "@/components/ImageUpload";
 import config from "@/config";
 
-export default function ProductForm({ product, category, onSave, onCancel, restaurantSettings, isLoading }) {
+export default function ProductForm({ product, category, onSave, onCancel, isLoading }) {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -423,7 +423,7 @@ export default function ProductForm({ product, category, onSave, onCancel, resta
                     />
                   </label>
                   <label className="label">
-                    <span className="label-text-alt">Неналичните продукти се показват като "Няма на склад"</span>
+                    <span className="label-text-alt">Неналичните продукти се показват като &ldquo;Няма на склад&rdquo;</span>
                   </label>
                 </div>
               </div>

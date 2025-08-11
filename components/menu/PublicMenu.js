@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import RestaurantHeader from "./RestaurantHeader";
 import CategorySection from "./CategorySection";
 import MenuNavigation from "./MenuNavigation";
@@ -170,7 +170,7 @@ export default function PublicMenu({ menuData }) {
           <div className="mb-8">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <h2 className="text-lg font-semibold text-base-content/80">
-                {getUIText('searchingFor', currentLanguage)}: "<span className="text-primary font-normal">{searchQuery}</span>"
+                {getUIText('searchingFor', currentLanguage)}: &ldquo;<span className="text-primary font-normal">{searchQuery}</span>&rdquo;
               </h2>
               <button
                 onClick={() => setSearchQuery("")}
@@ -194,7 +194,7 @@ export default function PublicMenu({ menuData }) {
             </div>
             <h3 className="text-xl font-semibold mb-2">Menu Coming Soon</h3>
             <p className="text-base-content/70">
-              We're working on adding our delicious menu items. Please check back soon!
+              We&apos;re working on adding our delicious menu items. Please check back soon!
             </p>
           </div>
         ) : (

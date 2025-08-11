@@ -24,7 +24,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { toast } from 'react-hot-toast';
 
 // Sortable Product Item Component
-function SortableProduct({ product, onEditProduct, onDeleteProduct, restaurantSettings, isLoading, formatPrice }) {
+function SortableProduct({ product, onEditProduct, onDeleteProduct, isLoading, formatPrice }) {
   const {
     attributes,
     listeners,

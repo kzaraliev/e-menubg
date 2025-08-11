@@ -1,12 +1,11 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Image from 'next/image';
 import { useQRCode } from "next-qrcode";
 import config from "@/config";
 
 export default function QRCodeGenerator({ restaurants = [] }) {
-  const { Canvas, SVG } = useQRCode();
+  const { Canvas } = useQRCode();
   const [selectedRestaurant, setSelectedRestaurant] = useState("");
   const [qrData, setQrData] = useState("");
   const [qrType, setQrType] = useState("url"); // 'url', 'wifi'
@@ -73,6 +72,7 @@ export default function QRCodeGenerator({ restaurants = [] }) {
     wifiConfig.password,
     wifiConfig.security,
     restaurants,
+    generateQRData,
   ]);
 
   // Качване на лого файл

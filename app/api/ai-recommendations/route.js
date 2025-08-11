@@ -139,7 +139,7 @@ export async function POST(req) {
   }
 }
 
-function createSystemPrompt(restaurant, menuData, language) {
+function createSystemPrompt(restaurant, menuData) {
   const restaurantName = restaurant.name;
   
   return `Ти си асистент за меню на ресторант ${restaurantName}. Отговаряй само на въпроси за храна/напитки.
@@ -188,8 +188,8 @@ function parseAIResponse(aiResponse) {
 }
 
 // Intelligent fallback system when OpenAI is not available
-function getFallbackRecommendations(userMessage, menuData, language) {
-  const { restaurant, categories } = menuData;
+function getFallbackRecommendations(userMessage, menuData) {
+  const { categories } = menuData;
   const message = userMessage.toLowerCase();
   
   // Collect all products
@@ -280,7 +280,7 @@ function getFallbackRecommendations(userMessage, menuData, language) {
 }
 
 // Pre-filter function to catch obvious non-food questions and save API costs
-function checkIfOffTopic(message, language) {
+function checkIfOffTopic(message) {
   const msg = message.toLowerCase();
   
   // Simple food keywords check (multiple languages)

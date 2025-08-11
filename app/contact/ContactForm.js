@@ -63,7 +63,7 @@ export default function ContactForm() {
     
     // Validate phone if present
     if (phone.trim()) {
-      const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+      const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
       if (!phoneRegex.test(phone)) {
         return 'Моля, въведете валиден телефонен номер';
       }

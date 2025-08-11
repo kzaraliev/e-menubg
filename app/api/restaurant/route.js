@@ -9,7 +9,7 @@ import MenuProduct from "@/models/MenuProduct";
 import Translation from "@/models/Translation";
 
 // GET /api/restaurant - Get user's restaurant
-export async function GET(req) {
+export async function GET() {
   try {
     await connectMongo();
     const session = await getServerSession(authOptions);
@@ -228,7 +228,7 @@ export async function PUT(req) {
 }
 
 // DELETE /api/restaurant - Delete restaurant (cascade delete categories/products)
-export async function DELETE(req) {
+export async function DELETE() {
   try {
     await connectMongo();
     const session = await getServerSession(authOptions);

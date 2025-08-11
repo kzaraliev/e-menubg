@@ -4,7 +4,7 @@ import { authOptions } from "@/libs/next-auth";
 import connectMongo from "@/libs/mongoose";
 import Category from "@/models/Category";
 import Restaurant from "@/models/Restaurant";
-import MenuProduct from "@/models/MenuProduct";
+
 
 // GET /api/categories?restaurantId=xxx - List categories for a restaurant
 export async function GET(req) {

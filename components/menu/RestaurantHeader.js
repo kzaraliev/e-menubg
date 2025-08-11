@@ -1,6 +1,6 @@
 "use client";
 
-import { getUIText, translateDay } from "@/libs/uiTranslations";
+import { getUIText } from "@/libs/uiTranslations";
 import config from "@/config";
 
 export default function RestaurantHeader({ restaurant, currentLanguage = 'bg' }) {

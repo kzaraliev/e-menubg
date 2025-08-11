@@ -115,11 +115,10 @@ const dashboardLinks = [
 const DashboardNavbar = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
 
   // Close mobile menu when route changes
   useEffect(() => {
-    setIsOpen(false);
+    // Mobile menu auto-close logic would go here
   }, [searchParams, pathname]);
 
   return (

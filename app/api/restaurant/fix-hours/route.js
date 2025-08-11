@@ -5,7 +5,7 @@ import connectMongo from "@/libs/mongoose";
 import Restaurant from "@/models/Restaurant";
 
 // POST /api/restaurant/fix-hours - Fix operating hours for user's restaurant
-export async function POST(req) {
+export async function POST() {
   try {
     await connectMongo();
     const session = await getServerSession(authOptions);

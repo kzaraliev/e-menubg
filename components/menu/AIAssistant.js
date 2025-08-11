@@ -74,7 +74,7 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
       const welcomeText = getUIText('aiWelcome', currentLanguage).replace('{restaurantName}', restaurant.name);
       typeMessage(welcomeText, Date.now(), true);
     }
-  }, [isOpen, messages.length, currentLanguage, restaurant.name, typingMessage]);
+  }, [isOpen, messages.length, currentLanguage, restaurant.name, typingMessage, typeMessage]);
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;

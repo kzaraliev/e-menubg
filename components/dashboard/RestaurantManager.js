@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import RestaurantForm from "./RestaurantForm";
 import RestaurantPreview from "./RestaurantPreview";
 import FixOperatingHours from "./FixOperatingHours";
 
-export default function RestaurantManager({ initialRestaurant, userId }) {
+export default function RestaurantManager({ initialRestaurant }) {
   const [restaurant, setRestaurant] = useState(initialRestaurant);
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("edit");
