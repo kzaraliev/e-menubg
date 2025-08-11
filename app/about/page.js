@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getSEOTags } from "@/libs/seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -12,7 +13,9 @@ export const metadata = getSEOTags({
 export default function About() {
   return (
     <>
-      <Header />
+      <Suspense>
+        <Header />
+      </Suspense>
       <main className="min-h-screen">
         {/* Hero Section */}
         <section className="bg-base-200 py-16 lg:py-24">

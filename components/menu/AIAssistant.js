@@ -17,9 +17,9 @@ export default function AIAssistant({ menuData, currentLanguage = 'bg' }) {
 
   const { restaurant } = menuData;
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   // Simple, fast typewriter effect
   const typeMessage = useCallback((fullText, messageId, isWelcome = false) => {
