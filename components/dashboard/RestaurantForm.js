@@ -63,12 +63,19 @@ export default function RestaurantForm({ restaurant, onSave, isLoading }) {
         logoUrl: restaurant.logoUrl || "",
         coverImageUrl: restaurant.coverImageUrl || "",
         operatingHours: mergedOperatingHours,
-        settings: { ...formData.settings, ...restaurant.settings }
+        settings: { 
+          showPricesInEuro: true,
+          showPricesInBGN: true,
+          defaultLanguage: "bg",
+          availableLanguages: ["bg"],
+          allowOnlineOrdering: false,
+          ...restaurant.settings
+        }
       });
       // For existing restaurants, consider the slug as manually set
       setIsSlugManuallyEdited(true);
     }
-  }, [restaurant, formData.settings]);
+  }, [restaurant]);
 
   const generateSlug = (name) => {
     // Transliteration map for Bulgarian Cyrillic to Latin

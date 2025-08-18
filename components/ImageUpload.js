@@ -191,10 +191,13 @@ export default function ImageUpload({
                 <Image
                   src={previewUrl} 
                   alt="Предварителен преглед"
+                  width={400}
+                  height={192}
                   className={`w-full h-48 object-cover transition-all duration-200 ${
                     isUploading ? 'opacity-50 blur-sm' : 'group-hover:scale-105'
                   }`}
                   onError={(e) => {
+                    console.warn('Image load error:', previewUrl);
                     e.target.style.display = 'none';
                     toast.error('Грешка при зареждане на изображението');
                   }}
